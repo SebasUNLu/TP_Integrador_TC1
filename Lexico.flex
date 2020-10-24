@@ -31,6 +31,8 @@ termino   = {termino} / {factor}
 termino   = {factor} 
 factor    = {DIGITO}+
 
+palabra_reservada
+
 CONDICION = {EXPRESION} < {EXPRESION}
 CONDICION = {EXPRESION} <= {EXPRESION}
 CONDICION = {EXPRESION} > {EXPRESION}
@@ -40,6 +42,7 @@ CONDICION = {EXPRESION} != {EXPRESION}
 CONDICION = {CONDICION} && {CONDICION}
 CONDICION = {CONDICION} || {CONDICION}
 
+DECLARACION = [ Lista_V ]
 Lista_V = {ID} ] := [ {TIPO} | {ID}, Lista_V , {TIPO}
 
 %%
@@ -49,8 +52,8 @@ Lista_V = {ID} ] := [ {TIPO} | {ID}, Lista_V , {TIPO}
 ":="    	    {System.out.println("Token ASIGN encontrado, Lexema "+ yytext());}
 ","	            {System.out.println("Token COMA, encontrado Lexema "+ yytext());}
 "."	            {System.out.println("Token PUNTO, encontrado Lexema "+ yytext());}
-"WHILE"         {System.out.println("Token P_RESERVADA encontrado, Lexema "+ yytext());}
-"IF"            {System.out.println("Token P_RESERVADA encontrado, Lexema "+ yytext());}
+"WHILE"         {System.out.println("Token WHILE encontrado, Lexema "+ yytext());}
+"IF"            {System.out.println("Token IF encontrado, Lexema "+ yytext());}
 "BEGIN.PROGRAM" {System.out.println("Token BEGIN, encontrado Lexema "+ yytext());}
 "END.PROGRAM"   {System.out.println("Token END, encontrado Lexema "+ yytext());}
 "DECLARE"	    {System.out.println("Token DECLARE encontrado, Lexema "+ yytext());}
