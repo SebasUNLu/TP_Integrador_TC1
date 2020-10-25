@@ -11,6 +11,7 @@ import javax.swing.JTextArea;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -46,6 +47,23 @@ public class Integ extends JFrame {
 		panel.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("ANALIZAR");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					fichero=new FileReader(ruta);
+					Lexico lex= new Lexico(fichero,textArea_1);
+					lex.next_token();
+					fichero.close();
+				} catch (FileNotFoundException e) {
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+			}
+		});
 		btnNewButton_2.setBounds(187, 703, 136, 23);
 		btnNewButton_2.setFont(new Font("Arial", Font.BOLD, 12));
 		panel.add(btnNewButton_2);
@@ -100,6 +118,12 @@ public class Integ extends JFrame {
 		
 	
 	}
+	//__________________________________________________________________________mostrar text area 2
+	 protected void  mostrar2(String str) {
+		  
+		 this.textArea_1.setText(str+" \n ");
+	 }
+	
 	
 	//___________________________________________________________________________________GUARDA LO QUE ESTA EN TEXTAREA EN EL ARCHIVO EN UBICACION
 			protected void guardarARc() throws IOException {
@@ -129,7 +153,9 @@ public class Integ extends JFrame {
 						fichero=new FileReader(archivo);
 						     int i=fichero.read();
 						     while(i!=-1) {
-						    	 str=str+ " " + (char) i;
+						    	 if(i!=0) {
+						    	 str=str+(char)(i);
+						    	 }
 						    	 i=fichero.read();
 						     }
 		        fichero.close();
