@@ -11,8 +11,8 @@ import javax.swing.JTextArea;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 
@@ -23,14 +23,14 @@ public class Integ extends JFrame {
     private FileReader fichero;
     private JTextArea textArea;
     private JTextArea textArea_1;
-	
+	private String ruta;
 
 
 	public Integ() {
 		initialize();
 	}
 
-
+//___________________________________________________________________________AREA DE OBJETOS 
 	private void initialize() {
 		
 		this.setBounds(100, 100, 998, 776);
@@ -41,25 +41,31 @@ public class Integ extends JFrame {
 		this.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		JButton btnNewButton_1 = new JButton("SIMBOLOS");
-		btnNewButton_1.setBounds(308, 703, 121, 23);
+		btnNewButton_1.setBounds(333, 703, 136, 23);
 		btnNewButton_1.setFont(new Font("Arial", Font.BOLD, 12));
 		panel.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("ANALIZAR");
-		btnNewButton_2.setBounds(177, 703, 121, 23);
+		btnNewButton_2.setBounds(187, 703, 136, 23);
 		btnNewButton_2.setFont(new Font("Arial", Font.BOLD, 12));
 		panel.add(btnNewButton_2);
 		
 		 textArea = new JTextArea();
-		textArea.setBounds(42, 21, 442, 627);
+		 textArea.setTabSize(5);
+		 textArea.setLineWrap(true);
+		 textArea.setWrapStyleWord(true);
+		 textArea.setFont(new Font("Arial", Font.PLAIN, 12));
+		 textArea.setBounds(42, 21, 442, 627);
 		panel.add(textArea);
 	
 		
 		 textArea_1 = new JTextArea();
-		textArea_1.setBounds(498, 21, 442, 627);
+		 textArea_1.setBounds(498, 21, 442, 627);
+		 textArea_1.setLineWrap(true);
 		panel.add(textArea_1);
 		
 		JButton btnNewButton = new JButton("CARGAR ARCHIVO");
+		btnNewButton.setBounds(42, 703, 136, 23);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
                       try {
@@ -72,23 +78,53 @@ public class Integ extends JFrame {
 			
 			}
 		});
-	
-		
-		                          
-		
-		btnNewButton.setBounds(32, 703, 135, 23);
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 12));
 		panel.add(btnNewButton);
-		
+	//_____________________________________________________________________EVENTO LO ESCRITO EN TEXT AREA 
+		JButton btnNewButton_3 = new JButton("GUARDAR");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					guardarARc();
+				} catch (IOException e) {
+					System.out.println("Guardado");
+				} 
+			}
+		});
+		btnNewButton_3.setFont(new Font("Arial", Font.BOLD, 12));
+		btnNewButton_3.setBounds(42, 659, 136, 23);
+		panel.add(btnNewButton_3);
+  
+
+	
 		
 	
 	}
 	
+	//___________________________________________________________________________________GUARDA LO QUE ESTA EN TEXTAREA EN EL ARCHIVO EN UBICACION
+			protected void guardarARc() throws IOException {
+				
+				String str = textArea.getText();
+				textArea.setText("");
+				FileWriter escribir = new FileWriter(ruta);
+				  for (int i=0;i<str.length();i++) {
+					  escribir.write(str.charAt(i));
+				  }
+				  escribir.close();
+			}
+	
+	
+	
+	
+	//__________________________________________________________________________________PIDE UBICACION DE ARCHIVO 
+		@SuppressWarnings("static-access")
 		protected void ventanaArc() throws IOException {
 			this.agreArc = new JFileChooser();
 			int num = this.agreArc.showOpenDialog(this);
 				if (num==agreArc.APPROVE_OPTION) {
 					 File archivo = agreArc.getSelectedFile();
+					 ruta=new String();
+				     ruta=archivo.getAbsolutePath();
 					 String str="";
 						fichero=new FileReader(archivo);
 						     int i=fichero.read();
@@ -96,10 +132,10 @@ public class Integ extends JFrame {
 						    	 str=str+ " " + (char) i;
 						    	 i=fichero.read();
 						     }
+		        fichero.close();
 				this.textArea.setText(str);
-
+                
 				};
 		
 	}
-	
 }
