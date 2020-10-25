@@ -9,46 +9,45 @@ import java_cup.runtime.Symbol;
 %column
 %char
 
-COMILLA = [']
-
-LETRA = [a-zA-Z]
+LETRA = [a-zA-Z]>
 DIGITO = [0-9]
 ESPACIO = [ \t\r\n]+
 ID = {LETRA}({LETRA}|{DIGITO}|_)*
+
+/*No estoy seguro de este <---------------*/
+COMILLA = ["]
+
 CONST_INT = {DIGITO}+
 CONST_REAL = {DIGITO}*.{DIGITO}+
 CONST_STRING = {COMILLA}({LETRA}|{DIGITO}|{ESPACIO})*{COMILLA}
-COMENTARIO = "</" ({LETRA}|{DIGITO}|{ESPACIO})* "/>"
-/*COMENTARIO = </{CONST_STRING}/>|</{CONST_STRING}{COMENTARIO}/>*/
+COMENTARIO = </{CONST_STRING}/>|</{CONST_STRING}{COMENTARIO}/>
 
 /* Para la funcion de nuestro grupo */
-/*expresion = {expresion} [+] {termino}
+expresion = {expresion} [+] {termino}
 expresion = {expresion} - {termino}
 expresion = {termino}
 termino   = {termino} [*] {factor}
 termino   = {termino} / {factor}
 termino   = {factor} 
-factor    = {DIGITO}+*/
+factor    = {DIGITO}+
 
-/*palabra_reservada*/
+palabra_reservada
 
-/*CONDICION = {EXPRESION} < {EXPRESION}
+CONDICION = {EXPRESION} < {EXPRESION}
 CONDICION = {EXPRESION} <= {EXPRESION}
 CONDICION = {EXPRESION} > {EXPRESION}
 CONDICION = {EXPRESION} >= {EXPRESION}
 CONDICION = {EXPRESION} == {EXPRESION}
 CONDICION = {EXPRESION} != {EXPRESION}
 CONDICION = {CONDICION} && {CONDICION}
-CONDICION = {CONDICION} || {CONDICION}*/
+CONDICION = {CONDICION} || {CONDICION}
 
-/*DECLARACION = [ Lista_V ]
-Lista_V = {ID} ] := [ {TIPO} | {ID}, Lista_V , {TIPO}*/
+DECLARACION = [ Lista_V ]
+Lista_V = {ID} ] := [ {TIPO} | {ID}, Lista_V , {TIPO}
 
 %%
 
 <YYINITIAL> {
-
-{COMENTARIO}    {/**/}
 
 ":="    	    {System.out.println("Token ASIGN encontrado, Lexema "+ yytext());}
 ","	            {System.out.println("Token COMA, encontrado Lexema "+ yytext());}
@@ -88,11 +87,13 @@ Lista_V = {ID} ] := [ {TIPO} | {ID}, Lista_V , {TIPO}*/
 {CONST_INT}		{System.out.println("Token CONST_INT, encontrado Lexema "+ yytext());}
 {CONST_REAL}    {System.out.println("Token CONST_REAL, encontrado Lexema "+ yytext());}
 {CONST_STRING}  {System.out.println("Token CONST_STRING, encontrado Lexema "+ yytext());}
-/*{CONDICION}     {System.out.println("Token CONDICION, encontrado Lexema "+ yytext());}*/
-/*{expresion}     {System.out.println("Token EXPRESION, encontrado Lexema "+ yytext());}*/
-/*{termino}       {System.out.println("Token TERMINO, encontrado Lexema "+ yytext());}*/
-/*{factor}        {System.out.println("Token FACTOR, encontrado Lexema "+ yytext());}*/
+{CONDICION}     {System.out.println("Token CONDICION, encontrado Lexema "+ yytext());}
+{expresion}     {System.out.println("Token EXPRESION, encontrado Lexema "+ yytext());}
+{termino}       {System.out.println("Token TERMINO, encontrado Lexema "+ yytext());}
+{factor}        {System.out.println("Token FACTOR, encontrado Lexema "+ yytext());}
 
+
+{COMENTARIO}    {}
 {ESPACIO}       {}
 
 }
