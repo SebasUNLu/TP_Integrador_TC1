@@ -11,6 +11,7 @@ import java_cup.runtime.Symbol;
 
 COMILLA = [']
 
+
 LETRA = [a-zA-Z]
 DIGITO = [0-9]
 ESPACIO = [ \t\r\n]+
