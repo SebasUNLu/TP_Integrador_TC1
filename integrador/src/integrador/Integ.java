@@ -17,7 +17,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 
-public class Integ extends JFrame {
+import java_cup.runtime.Symbol;
+import jflex.core.sym;
+
+public class Integ extends JFrame{
 
 	private static final long serialVersionUID = 1L;
     private JFileChooser agreArc ;
@@ -51,7 +54,7 @@ public class Integ extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					fichero=new FileReader(ruta);
-					Lexico lex= new Lexico(fichero,textArea_1);
+					Lexico lex= new Lexico(fichero);
 					lex.next_token();
 					fichero.close();
 				} catch (FileNotFoundException e) {

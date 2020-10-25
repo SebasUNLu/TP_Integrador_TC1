@@ -9,17 +9,17 @@ import java_cup.runtime.Symbol;
 %column
 %char
 
-COMILLA = [']
 
-LETRA = [a-zA-Z]
+LETRA = [a-zA-ZáéíóúÁÉÍÓÚ]
 DIGITO = [0-9]
 ESPACIO = [ \t\r\n]+
 ID = {LETRA}({LETRA}|{DIGITO}|_)*
 CONST_INT = {DIGITO}+
-CONST_REAL = {DIGITO}*.{DIGITO}+
-CONST_STRING = {COMILLA}({LETRA}|{DIGITO}|{ESPACIO})*{COMILLA}
-COMENTARIO = "</" ({LETRA}|{DIGITO}|{ESPACIO})* "/>"
-/*COMENTARIO = </{CONST_STRING}/>|</{CONST_STRING}{COMENTARIO}/>*/
+CONST_REAL = {DIGITO}*[.]{DIGITO}+
+CONST_STRING = "{DIGITO|NUMERO}*"
+/*CONST_STRING = {COMILLA}({LETRA}|{DIGITO}|{ESPACIO})*{COMILLA}*/
+COMENTARIO = "</" ~"/>"
+/*COMENTARIO = </({LETRA}|{DIGITO}|{ESPACIO})>*/
 
 /* Para la funcion de nuestro grupo */
 /*expresion = {expresion} [+] {termino}
@@ -53,13 +53,21 @@ Lista_V = {ID} ] := [ {TIPO} | {ID}, Lista_V , {TIPO}*/
 ":="    	    {System.out.println("Token ASIGN encontrado, Lexema "+ yytext());}
 ","	            {System.out.println("Token COMA, encontrado Lexema "+ yytext());}
 "."	            {System.out.println("Token PUNTO, encontrado Lexema "+ yytext());}
+";"             {System.out.println("Token P_COMA, encontrado Lexema "+ yytext());}
+"-"
+"_"
 "WHILE"         {System.out.println("Token WHILE encontrado, Lexema "+ yytext());}
 "IF"            {System.out.println("Token IF encontrado, Lexema "+ yytext());}
+"PRINT"         {System.out.println("Token PRINT encontrado, Lexema "+ yytext());}
 "BEGIN.PROGRAM" {System.out.println("Token BEGIN, encontrado Lexema "+ yytext());}
 "END.PROGRAM"   {System.out.println("Token END, encontrado Lexema "+ yytext());}
 "DECLARE"	    {System.out.println("Token DECLARE encontrado, Lexema "+ yytext());}
 "ENDDECLARE"    {System.out.println("Token ENDDECLARE encontrado, Lexema "+ yytext());}
 "END"	        {System.out.println("Token END, encontrado Lexema "+ yytext());}        
+"INT"           {System.out.println("Token INT, encontrado Lexema "+ yytext());}
+"STRING"        {System.out.println("Token STRING, encontrado Lexema "+ yytext());}
+"FLOAT"         {System.out.println("Token FLOAT, encontrado Lexema "+ yytext());}
+"CHAR"          {System.out.println("Token CHAR, encontrado Lexema "+ yytext());}
 
 /*Operadores*/
 "="     {System.out.println("Token IGUAL, encontrado Lexema "+ yytext());}
@@ -72,6 +80,8 @@ Lista_V = {ID} ] := [ {TIPO} | {ID}, Lista_V , {TIPO}*/
 ">="	{System.out.println("Token MAYOR_IGUAL_QUE encontrado, Lexema "+ yytext());}
 "<="	{System.out.println("Token MENOR_IGUAL_QUE encontrado, Lexema "+ yytext());}
 "=="    {System.out.println("Token COMPARAR, encontrado Lexema "+ yytext());}
+"&"    {System.out.println("Token AND, encontrado Lexema "+ yytext());}
+"|"    {System.out.println("Token PIPE, encontrado Lexema "+ yytext());}
 
 /*Parentesis*/
 "("     {System.out.println("Token PARENTESIS_ABRIR, encontrado Lexema "+ yytext());}
