@@ -9,40 +9,14 @@ import java_cup.runtime.Symbol;
 %column
 %char
 
-/*COMILLA = ["\""]*/
-
 LETRA = [a-zA-ZáéíóúÁÉÍÓÚ]
 DIGITO = [0-9]
 ESPACIO = [ \t\r\n]+
 ID = {LETRA}({LETRA}|{DIGITO}|_)*
 CONST_INT = {DIGITO}+
 CONST_REAL = {DIGITO}*[.]{DIGITO}+
-CONST_STRING = ["\""]({LETRA}|{DIGITO}|{ESPACIO})*["\""]
+CONST_STRING = "\"" .* "\""
 COMENTARIO = "</" ~"/>"
-/*COMENTARIO = </({LETRA}|{DIGITO}|{ESPACIO})>*/
-
-/* Para la funcion de nuestro grupo */
-/*expresion = {expresion} [+] {termino}
-expresion = {expresion} - {termino}
-expresion = {termino}
-termino   = {termino} [*] {factor}
-termino   = {termino} / {factor}
-termino   = {factor} 
-factor    = {DIGITO}+*/
-
-/*palabra_reservada*/
-
-/*CONDICION = {EXPRESION} < {EXPRESION}
-CONDICION = {EXPRESION} <= {EXPRESION}
-CONDICION = {EXPRESION} > {EXPRESION}
-CONDICION = {EXPRESION} >= {EXPRESION}
-CONDICION = {EXPRESION} == {EXPRESION}
-CONDICION = {EXPRESION} != {EXPRESION}
-CONDICION = {CONDICION} && {CONDICION}
-CONDICION = {CONDICION} || {CONDICION}*/
-
-/*DECLARACION = [ Lista_V ]
-Lista_V = {ID} ] := [ {TIPO} | {ID}, Lista_V , {TIPO}*/
 
 %%
 
@@ -104,7 +78,6 @@ Lista_V = {ID} ] := [ {TIPO} | {ID}, Lista_V , {TIPO}*/
 
 /*Funciones*/
 "Iguales"   {System.out.println("Token FUNC_IGUALES, encontrado Lexema "+ yytext());}
-/*CHICOS, QUE WTF, COMO PONEMOS LAS FUNCIONES? LO HACEMOS GENERICO?*/
 
 /*Identificadores*/
 {ID}		    {System.out.println("Token ID encontrado, Lexema "+ yytext());}
