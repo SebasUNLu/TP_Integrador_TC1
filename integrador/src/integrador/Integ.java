@@ -49,25 +49,35 @@ public class Integ extends JFrame{
 //___________________________________________________________________________AREA DE OBJETOS 
 	private void initialize() {
 		
-		this.setBounds(100, 100,797,430);
+		this.setBounds(100, 100,797,500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(176, 196, 222));
 		this.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
-		JButton btnNewButton_1 = new JButton("SIMBOLOS");
+		JButton btnNewButton_1 = new JButton("Generar Tabla de Simbolos");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				iof.guardarArchivo(Tabla.TBL_Simbolos);
+				if(ruta==null) {
+					JOptionPane.showMessageDialog(null, "No se detecto ningun archivo cargado\nDebe cargar un archivo antes", "Ruta no especificada", JOptionPane.ERROR_MESSAGE);
+				}else {
+					if(textArea.getText().equals("")) {
+						JOptionPane.showMessageDialog(null, "Se creo el Archivo de Simbolos vacío.", "", JOptionPane.WARNING_MESSAGE);
+					}else {
+						iof.guardarArchivo(Tabla.TBL_Simbolos);	
+						JOptionPane.showMessageDialog(null, "Se creo el Archivo de Simbolos dentro del Proyecto.", "", JOptionPane.INFORMATION_MESSAGE);
+					}
+				}
+				
 			}
 		});
-		btnNewButton_1.setBounds(615, 357, 136, 23);
+		btnNewButton_1.setBounds(532, 391, 225, 36);
 		btnNewButton_1.setFont(new Font("Arial", Font.BOLD, 12));
 		panel.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("ANALIZAR");
-		btnNewButton_2.setBounds(322, 357, 136, 23);
+		btnNewButton_2.setBounds(320, 358, 136, 23);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(ruta == null) {
@@ -94,26 +104,25 @@ public class Integ extends JFrame{
 		panel.add(btnNewButton_2);
 		
 		 textArea = new JTextArea();
-		 textArea.setBounds(10, 10,345, 283);
+		 textArea.setBounds(10, 32,345, 283);
 		 textArea.setEditable(true);
 		 textArea.setFont(new Font("Arial", Font.PLAIN, 12));
 		 ap=new JScrollPane(textArea);
-		 ap.setBounds(10, 10,345, 283);
+		 ap.setBounds(10, 32,345, 283);
 		 panel.add(ap);
 		 
 
 		 textArea_1 = new JTextArea();
-		 textArea_1.setBounds(406, 13,345, 280);
+		 textArea_1.setBounds(412, 35,345, 280);
 		 textArea_1.setEditable(true);
 		 textArea_1.setFont(new Font("Arial", Font.PLAIN, 12));
-
 		 ap2=new JScrollPane(textArea_1);
-		 ap2.setBounds(406, 13,345, 280);
+		 ap2.setBounds(412, 35,345, 280);
 		 panel.add(ap2);
 		 
 		
 		JButton btnNewButton = new JButton("CARGAR ARCHIVO");
-		btnNewButton.setBounds(166, 357, 136, 23);
+		btnNewButton.setBounds(156, 358, 154, 23);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
                       try {
@@ -130,7 +139,7 @@ public class Integ extends JFrame{
 		panel.add(btnNewButton);
 	//_____________________________________________________________________EVENTO LO ESCRITO EN TEXT AREA 
 		JButton btnNewButton_3 = new JButton("GUARDAR");
-		btnNewButton_3.setBounds(20, 357, 136, 23);
+		btnNewButton_3.setBounds(10, 358, 136, 23);
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -149,7 +158,7 @@ public class Integ extends JFrame{
 				textArea.setText("");
 			}
 		});
-		btnClear.setBounds(129, 293, 89, 23);
+		btnClear.setBounds(142, 326, 89, 23);
 		panel.add(btnClear);
 		
 		JButton btnClear_1 = new JButton("Clear");
@@ -158,12 +167,32 @@ public class Integ extends JFrame{
 				textArea_1.setText("");
 			}
 		});
-		btnClear_1.setBounds(536, 293, 89, 23);
+		btnClear_1.setBounds(546, 324, 89, 23);
 		panel.add(btnClear_1);
 		
 		label_ruta = new JLabel("Ruta indicada:");
-		label_ruta.setBounds(10, 332, 741, 14);
+		label_ruta.setBounds(10, 402, 741, 14);
 		panel.add(label_ruta);
+		
+		JLabel lblArchivo = new JLabel("Archivo:");
+		lblArchivo.setBounds(10, 11, 99, 14);
+		panel.add(lblArchivo);
+		
+		JLabel lblResultadosDeAnlisis = new JLabel("Resultados de An\u00E1lisis:");
+		lblResultadosDeAnlisis.setBounds(413, 10, 136, 14);
+		panel.add(lblResultadosDeAnlisis);
+		
+		JButton btnNewButton_4 = new JButton("Quitar Archivo");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ruta=null;
+				label_ruta.setText("");
+				textArea.setText("");
+				textArea_1.setText("");
+			}
+		});
+		btnNewButton_4.setBounds(78, 427, 120, 23);
+		panel.add(btnNewButton_4);
   
 
 	
@@ -182,6 +211,7 @@ public class Integ extends JFrame{
 				
 				if(ruta == null) {
 					ruta = JOptionPane.showInputDialog("Ingrese el nombre del archivo a guardar\nSe guardara en la carpeta del proyecto");
+					label_ruta.setText("Ruta Indicada:..\\TP_Integrador_TC1\\integrador\\"+ruta);
 				}
 				if(ruta !=null) {
 					String str = textArea.getText();
