@@ -5,8 +5,11 @@ package integrador;
 // source: C:/Users/Sebas/Desktop/Lexico.flex
 
 import java_cup.runtime.Symbol;
+import jflex.core.sym;
+
 import java.util.ArrayList;
 
+import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 
 
@@ -380,7 +383,7 @@ public class Lexico implements java_cup.runtime.Scanner {
 
   /* user code: */
     TablaSimbolos Tabla;
-    JTextPane textoArea;
+    JTextArea textoArea;
 
 
   /**
@@ -388,8 +391,10 @@ public class Lexico implements java_cup.runtime.Scanner {
    *
    * @param   in  the java.io.Reader to read input from.
    */
-  public Lexico(java.io.Reader in) {
+  public Lexico(java.io.Reader in,TablaSimbolos t, JTextArea tArea) {
     this.zzReader = in;
+    this.textoArea=tArea;
+    this.Tabla=t;
   }
 
   /**

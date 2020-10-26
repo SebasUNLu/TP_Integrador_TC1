@@ -29,8 +29,8 @@ public class Integ extends JFrame{
 	private static final long serialVersionUID = 1L;
     private JFileChooser agreArc ;
     private FileReader fichero;
-    private JTextPane textArea;
-    private JTextPane textArea_1;
+    private JTextArea textArea;
+    private JTextArea textArea_1;
     private JScrollPane ap;
     private JScrollPane ap2;
 	private String ruta;
@@ -39,6 +39,7 @@ public class Integ extends JFrame{
 
 	public Integ() {
 		initialize();
+		Tabla=new TablaSimbolos();
 	}
 
 //___________________________________________________________________________AREA DE OBJETOS 
@@ -67,7 +68,7 @@ public class Integ extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					fichero=new FileReader(ruta);
-					Lexico lex= new Lexico(fichero, );
+					Lexico lex= new Lexico(fichero,Tabla,textArea_1);
 					lex.next_token();
 					fichero.close();
 				} catch (FileNotFoundException e) {
@@ -83,7 +84,7 @@ public class Integ extends JFrame{
 		btnNewButton_2.setFont(new Font("Arial", Font.BOLD, 12));
 		panel.add(btnNewButton_2);
 		
-		 textArea = new JTextPane();
+		 textArea = new JTextArea();
 		 textArea.setBounds(10, 10,345, 283);
 		 textArea.setEditable(true);
 		 textArea.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -92,7 +93,7 @@ public class Integ extends JFrame{
 		 panel.add(ap);
 		 
 
-		 textArea_1 = new JTextPane();
+		 textArea_1 = new JTextArea();
 		 textArea_1.setBounds(406, 13,345, 280);
 		 textArea_1.setEditable(true);
 		 textArea_1.setFont(new Font("Arial", Font.PLAIN, 12));
