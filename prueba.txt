@@ -14,7 +14,7 @@ ENDDECLARE
 
 BEGIN.PROGRAM
 
-PRINT  </Prueba.txt Analizador Lexico!/>
+PRINT  "Prueba.txt Analizador Lexico!"
 
 contador = 0
 suma = 7.5
