@@ -37,7 +37,7 @@ public class Integ extends JFrame{
 //___________________________________________________________________________AREA DE OBJETOS 
 	private void initialize() {
 		
-		this.setBounds(100, 100, 998, 776);
+		this.setBounds(100, 100,600,430);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		JPanel panel = new JPanel();
@@ -45,7 +45,7 @@ public class Integ extends JFrame{
 		this.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		JButton btnNewButton_1 = new JButton("SIMBOLOS");
-		btnNewButton_1.setBounds(333, 703, 136, 23);
+		btnNewButton_1.setBounds(334, 358, 136, 23);
 		btnNewButton_1.setFont(new Font("Arial", Font.BOLD, 12));
 		panel.add(btnNewButton_1);
 		
@@ -67,7 +67,7 @@ public class Integ extends JFrame{
 				
 			}
 		});
-		btnNewButton_2.setBounds(187, 703, 136, 23);
+		btnNewButton_2.setBounds(173, 358, 136, 23);
 		btnNewButton_2.setFont(new Font("Arial", Font.BOLD, 12));
 		panel.add(btnNewButton_2);
 		
@@ -76,17 +76,17 @@ public class Integ extends JFrame{
 		 textArea.setLineWrap(true);
 		 textArea.setWrapStyleWord(true);
 		 textArea.setFont(new Font("Arial", Font.PLAIN, 12));
-		 textArea.setBounds(42, 21, 442, 627);
+		 textArea.setBounds(34, 24, 255, 277);
 		panel.add(textArea);
 	
 		
 		 textArea_1 = new JTextArea();
-		 textArea_1.setBounds(498, 21, 442, 627);
+		 textArea_1.setBounds(312, 21, 255, 280);
 		 textArea_1.setLineWrap(true);
 		panel.add(textArea_1);
 		
 		JButton btnNewButton = new JButton("CARGAR ARCHIVO");
-		btnNewButton.setBounds(42, 703, 136, 23);
+		btnNewButton.setBounds(20, 358, 136, 23);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
                       try {
@@ -113,7 +113,7 @@ public class Integ extends JFrame{
 			}
 		});
 		btnNewButton_3.setFont(new Font("Arial", Font.BOLD, 12));
-		btnNewButton_3.setBounds(42, 659, 136, 23);
+		btnNewButton_3.setBounds(20, 324, 136, 23);
 		panel.add(btnNewButton_3);
   
 
