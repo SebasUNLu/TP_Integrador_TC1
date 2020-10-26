@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/facun/Documents/GitHub/TP_Integrador_TC1/lbrerias/java-cup-11b-runtime.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/facun/Documents/GitHub/TP_Integrador_TC1/lbrerias/jflex-full-1.8.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/facun/Documents/GitHub/TP_Integrador_TC1/lbrerias/miglayout-4.0-swing.jar"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/Liberia"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/Sebas/Documents/GitHub/TP_Integrador_TC1/integrador/Librerias/java-cup-11b-runtime.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Sebas/Documents/GitHub/TP_Integrador_TC1/integrador/Librerias/jflex-full-1.8.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Sebas/Documents/GitHub/TP_Integrador_TC1/integrador/Librerias/miglayout-4.0-swing.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

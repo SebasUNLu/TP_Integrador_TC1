@@ -1,6 +1,8 @@
 package integrador;
 
-public class TokenObject {
+import java.io.Serializable;
+
+public class TokenObject implements Serializable {
 	
 	private String nombre;
 	private String token;
