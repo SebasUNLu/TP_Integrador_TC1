@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public class TokenObject implements Serializable {
 	
-	private String nombre;
-	private String token;
-	private String tipo;
-	private String valor;
-	private int longitud;
+	String nombre;
+	String token;
+	String tipo;
+	String valor;
+	int longitud;
 	
 	public String getNombre() {
 		return nombre;

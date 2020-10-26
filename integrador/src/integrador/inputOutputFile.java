@@ -6,25 +6,22 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class inputOutputFile implements Serializable {
 	
-	void guardarArchivo(TokenObject token) {
+	void guardarArchivo(ArrayList<TokenObject> token) {
 		try (FileOutputStream fos = new FileOutputStream("tablaSimbolos.txt");
 			     ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-
 			    // Escribe el token en el archivo
 			    oos.writeObject(token);
-
 			} catch (IOException ex) {
 			    ex.printStackTrace();
 			}
 	}
 	
 	void leerArchivo (TokenObject token) {
-		
-		try
-	    {    
+		try{    
 	        // Leyendo del archivo 
 	        FileInputStream file = new FileInputStream("tablaSimbolos.txt"); 
 	        ObjectInputStream in = new ObjectInputStream(file); 
@@ -49,8 +46,5 @@ public class inputOutputFile implements Serializable {
 	        System.out.println("ClassNotFoundException is caught"); 
 	    } 
 		
-
-	
-
 } 
 }

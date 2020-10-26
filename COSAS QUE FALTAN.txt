@@ -1,0 +1,9 @@
+Cosas a aclarar:
+
+-Pasar el TextArea y la Tabla por el constructor de Lexico.java
+
+
+COSAS QUE FALTAN:
+-El Jpane no se muestra en mi pantalla ;-;
+-JPane no tiene append, usar un String unico?
+-Boton simbolos, que muestre y grabe la tabla en un txt

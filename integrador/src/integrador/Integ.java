@@ -35,6 +35,7 @@ public class Integ extends JFrame{
     private JScrollPane ap2;
 	private String ruta;
 
+	private TablaSimbolos Tabla;
 
 	public Integ() {
 		initialize();
@@ -51,6 +52,11 @@ public class Integ extends JFrame{
 		this.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		JButton btnNewButton_1 = new JButton("SIMBOLOS");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		btnNewButton_1.setBounds(334, 358, 136, 23);
 		btnNewButton_1.setFont(new Font("Arial", Font.BOLD, 12));
 		panel.add(btnNewButton_1);
@@ -61,7 +67,7 @@ public class Integ extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					fichero=new FileReader(ruta);
-					Lexico lex= new Lexico(fichero);
+					Lexico lex= new Lexico(fichero, );
 					lex.next_token();
 					fichero.close();
 				} catch (FileNotFoundException e) {

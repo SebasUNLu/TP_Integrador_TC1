@@ -1,4 +1,5 @@
 import java_cup.runtime.Symbol;
+import java.util.ArrayList;
 
 %%
 /*%cupsym Simbolo*/
@@ -8,6 +9,12 @@ import java_cup.runtime.Symbol;
 %line
 %column
 %char
+
+%{
+    TablaSimbolos Tabla;
+    JTextPane textoArea;
+%}
+
 
 LETRA = [a-zA-ZáéíóúÁÉÍÓÚ]
 DIGITO = [0-9]
@@ -24,66 +31,89 @@ COMENTARIO = "</" ~"/>"
 
 {COMENTARIO}    {/**/}
 
-":="    	    {System.out.println("Token ASIGN encontrado, Lexema "+ yytext());}
-":"             {System.out.println("Token DOS_PUNTOS encontrado, Lexema "+ yytext());}
-","	            {System.out.println("Token COMA, encontrado Lexema "+ yytext());}
-"."	            {System.out.println("Token PUNTO, encontrado Lexema "+ yytext());}
-";"             {System.out.println("Token P_COMA, encontrado Lexema "+ yytext());}
-"_"             {System.out.println("Token GUON_BAJO, encontrado Lexema "+ yytext());}
-"!"             {System.out.println("Token EXCL_CERRAR, encontrado Lexema "+ yytext());}
-"¡"             {System.out.println("Token EXCL_ABRIR, encontrado Lexema "+ yytext());}
-"?"             {System.out.println("Token PREG_CERRAR, encontrado Lexema "+ yytext());}
-"¿"             {System.out.println("Token PREG_ABRIR, encontrado Lexema "+ yytext());}
-"%"             {System.out.println("Token PORCENTAJE, encontrado Lexema "+ yytext());}
-"$"             {System.out.println("Token SIGNO_PESO, encontrado Lexema "+ yytext());}
-"#"             {System.out.println("Token NUMERAL, encontrado Lexema "+ yytext());}
-"@"             {System.out.println("Token ARROBA, encontrado Lexema "+ yytext());}
-"while"         {System.out.println("Token WHILE encontrado, Lexema "+ yytext());}
-"If"            {System.out.println("Token IF encontrado, Lexema "+ yytext());}
-"Else"          {System.out.println("Token ELSE, encontrado Lexema "+ yytext());}
-"PRINT"         {System.out.println("Token PRINT encontrado, Lexema "+ yytext());}
-"BEGIN.PROGRAM" {System.out.println("Token BEGIN, encontrado Lexema "+ yytext());}
-"END.PROGRAM"   {System.out.println("Token END, encontrado Lexema "+ yytext());}
-"DECLARE"	    {System.out.println("Token DECLARE encontrado, Lexema "+ yytext());}
-"ENDDECLARE"    {System.out.println("Token ENDDECLARE encontrado, Lexema "+ yytext());}
-"END"	        {System.out.println("Token END, encontrado Lexema "+ yytext());}        
-"INT"           {System.out.println("Token INT, encontrado Lexema "+ yytext());}
-"STRING"        {System.out.println("Token STRING, encontrado Lexema "+ yytext());}
-"FLOAT"         {System.out.println("Token FLOAT, encontrado Lexema "+ yytext());}
-"CHAR"          {System.out.println("Token CHAR, encontrado Lexema "+ yytext());}
-"and"           {System.out.println("Token AND, encontrado Lexema "+ yytext());}
+":="    	    {textoArea.append("Token ASIGN encontrado, Lexema "+ yytext()+"\n");}
+":"             {textoArea.append("Token DOS_PUNTOS encontrado, Lexema "+ yytext()+"\n");}
+","	            {textoArea.append("Token COMA encontrado, Lexema "+ yytext()+"\n");}
+"."	            {textoArea.append("Token PUNTO encontrado, Lexema "+ yytext()+"\n");}
+";"             {textoArea.append("Token P_COMA encontrado, Lexema "+ yytext()+"\n");}
+"_"             {textoArea.append("Token GUION_BAJO encontrado, Lexema "+ yytext()+"\n");}
+"while"         {textoArea.append("Token WHILE encontrado, Lexema "+ yytext()+"\n");}
+"If"            {textoArea.append("Token IF encontrado, Lexema "+ yytext()+"\n");}
+"Else"          {textoArea.append("Token ELSE encontrado, Lexema "+ yytext()+"\n");}
+"PRINT"         {textoArea.append("Token PRINT encontrado, Lexema "+ yytext()+"\n");}
+"BEGIN.PROGRAM" {textoArea.append("Token BEGIN_PROGRAM encontrado, Lexema "+ yytext()+"\n");}
+"END.PROGRAM"   {textoArea.append("Token END_PROGRAM encontrado, Lexema "+ yytext()+"\n");}
+"DECLARE"	    {textoArea.append("Token DECLARE encontrado, Lexema "+ yytext()+"\n");}
+"ENDDECLARE"    {textoArea.append("Token END_DECLARE encontrado, Lexema "+ yytext()+"\n");}
+"END"	        {textoArea.append("Token END encontrado, Lexema "+ yytext()+"\n");}        
+"INT"           {textoArea.append("Token INT encontrado, Lexema "+ yytext()+"\n");}
+"STRING"        {textoArea.append("Token STRING encontrado, Lexema "+ yytext()+"\n");}
+"FLOAT"         {textoArea.append("Token FLOAT encontrado, Lexema "+ yytext()+"\n");}
+"CHAR"          {textoArea.append("Token CHAR encontrado, Lexema "+ yytext()+"\n");}
+"and"           {textoArea.append("Token AND encontrado, Lexema "+ yytext()+"\n");}
 
 /*Operadores*/
-"="     {System.out.println("Token IGUAL, encontrado Lexema "+ yytext());}
-"+"     {System.out.println("Token SUMA, encontrado Lexema "+ yytext());}
-"-"     {System.out.println("Token RESTA, encontrado Lexema "+ yytext());}
-"/"     {System.out.println("Token DIVISION, encontrado Lexema "+ yytext());}
-"*"     {System.out.println("Token MULTIPLICAR, encontrado Lexema "+ yytext());}
-">"     {System.out.println("Token MAYOR_QUE encontrado, Lexema "+ yytext());}
-"<"	    {System.out.println("Token MENOR_QUE encontrado, Lexema "+ yytext());}
-">="	{System.out.println("Token MAYOR_IGUAL_QUE encontrado, Lexema "+ yytext());}
-"<="	{System.out.println("Token MENOR_IGUAL_QUE encontrado, Lexema "+ yytext());}
-"=="    {System.out.println("Token COMPARAR, encontrado Lexema "+ yytext());}
-"<>"    {System.out.println("Token DISTINTO, encontrado Lexema "+ yytext());}
-"&"     {System.out.println("Token AND, encontrado Lexema "+ yytext());}
-"|"     {System.out.println("Token PIPE, encontrado Lexema "+ yytext());}
+"="     {textoArea.append("Token IGUAL encontrado, Lexema "+ yytext()+"\n");}
+"+"     {textoArea.append("Token SUMA encontrado, Lexema "+ yytext()+"\n");}
+"-"     {textoArea.append("Token RESTA encontrado, Lexema "+ yytext()+"\n");}
+"/"     {textoArea.append("Token DIVISION encontrado, Lexema "+ yytext()+"\n");}
+"*"     {textoArea.append("Token MULTIPLICAR encontrado, Lexema "+ yytext()+"\n");}
+">"     {textoArea.append("Token MAYOR_QUE encontrado, Lexema "+ yytext()+"\n");}
+"<"	    {textoArea.append("Token MENOR_QUE encontrado, Lexema "+ yytext()+"\n");}
+">="	{textoArea.append("Token MAYOR_IGUAL_QUE encontrado, Lexema "+ yytext()+"\n");}
+"<="	{textoArea.append("Token MENOR_IGUAL_QUE encontrado, Lexema "+ yytext()+"\n");}
+"=="    {textoArea.append("Token COMPARAR encontrado, Lexema "+ yytext()+"\n");}
+"<>"    {textoArea.append("Token DISTINTO encontrado, Lexema "+ yytext()+"\n");}
+"&"     {textoArea.append("Token AND encontrado, Lexema "+ yytext()+"\n");}
+"|"     {textoArea.append("Token PIPE encontrado, Lexema "+ yytext()+"\n");}
 
 /*Parentesis*/
-"("     {System.out.println("Token PARENTESIS_ABRIR, encontrado Lexema "+ yytext());}
-")"     {System.out.println("Token PARENTESIS_CERRAR, encontrado Lexema "+ yytext());}
-"["     {System.out.println("Token CORCHETE_ABRIR, encontrado Lexema "+ yytext());}
-"]"     {System.out.println("Token CORCHETE_CERRAR, encontrado Lexema "+ yytext());}
-"{"     {System.out.println("Token LLAVE_ABRIR, encontrado Lexema "+ yytext());}
-"}"     {System.out.println("Token LLAVE_CERRAR, encontrado Lexema "+ yytext());}
+"("     {textoArea.append("Token PARENTESIS_ABRIR encontrado, Lexema "+ yytext()+"\n");}
+")"     {textoArea.append("Token PARENTESIS_CERRAR encontrado, Lexema "+ yytext()+"\n");}
+"["     {textoArea.append("Token CORCHETE-ABRIR encontrado, Lexema "+ yytext()+"\n");}
+"]"     {textoArea.append("Token CORCHETE_CERRAR encontrado, Lexema "+ yytext()+"\n");}
+"{"     {textoArea.append("Token LLAVE_ABRIR encontrado, Lexema "+ yytext()+"\n");}
+"}"     {textoArea.append("Token LLAVE_CERRAR encontrado, Lexema "+ yytext()+"\n");}
 
 /*Funciones*/
-"Iguales"   {System.out.println("Token FUNC_IGUALES, encontrado Lexema "+ yytext());}
+"Iguales"   {textoArea.append("Token IGUALES_FUNC encontrado, Lexema "+ yytext()+"\n");}
 
 /*Identificadores*/
-{ID}		    {System.out.println("Token ID encontrado, Lexema "+ yytext());}
-{CONST_INT}		{System.out.println("Token CONST_INT, encontrado Lexema "+ yytext());}
-{CONST_REAL}    {System.out.println("Token CONST_REAL, encontrado Lexema "+ yytext());}
-{CONST_STRING}  {System.out.println("Token CONST_STRING, encontrado Lexema "+ yytext());}
+{ID}		    {TokenObject TO = new TokenObject();
+                TO.nombre = yytext();
+                TO.token = "ID";
+                TO.tipo = "";
+                TO.valor = "";
+                TO.longitud = 0;
+                System.out.println("Token LLAVE_CERRAR, encontrado Lexema "+ TO.nombre);
+                Tabla.guardarTokenObject(TO);}
+
+{CONST_INT}		{TokenObject TO = new TokenObject();
+                TO.nombre = "_" + yytext();
+                TO.token = "CONST_INT";
+                TO.tipo = "";
+                TO.valor = yytext();
+                TO.longitud = 0;
+                System.out.println("Token CONST_INT, encontrado Lexema "+ yytext());
+                Tabla.guardarTokenObject(TO);}
+
+{CONST_REAL}    {TokenObject TO = new TokenObject();
+                TO.nombre = "_" + yytext();
+                TO.token = "CONST_REAL";
+                TO.tipo = "";
+                TO.valor = yytext();
+                TO.longitud = 0;
+                System.out.println("Token CONST_REAL, encontrado Lexema "+ yytext());
+                Tabla.guardarTokenObject(TO);}
+
+{CONST_STRING}  {TokenObject TO = new TokenObject();
+                TO.nombre = "_" + yytext();
+                TO.token = "CONST_STRING";
+                TO.tipo = "";
+                TO.valor = yytext();
+                TO.longitud = Tabla.tamanoCadena(TO.valor);
+                System.out.println("Token CONST_STRING, encontrado Lexema "+ yytext());
+                Tabla.guardarTokenObject(TO);}
 
 {ESPACIO}       {}
 
