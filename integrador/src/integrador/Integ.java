@@ -2,12 +2,16 @@ package integrador;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
 import java.awt.Font;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
+
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -25,8 +29,10 @@ public class Integ extends JFrame{
 	private static final long serialVersionUID = 1L;
     private JFileChooser agreArc ;
     private FileReader fichero;
-    private JTextArea textArea;
-    private JTextArea textArea_1;
+    private JTextPane textArea;
+    private JTextPane textArea_1;
+    private JScrollPane ap;
+    private JScrollPane ap2;
 	private String ruta;
 
 
@@ -37,7 +43,7 @@ public class Integ extends JFrame{
 //___________________________________________________________________________AREA DE OBJETOS 
 	private void initialize() {
 		
-		this.setBounds(100, 100,600,430);
+		this.setBounds(100, 100,797,430);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		JPanel panel = new JPanel();
@@ -50,6 +56,7 @@ public class Integ extends JFrame{
 		panel.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("ANALIZAR");
+		btnNewButton_2.setBounds(173, 358, 136, 23);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -67,23 +74,27 @@ public class Integ extends JFrame{
 				
 			}
 		});
-		btnNewButton_2.setBounds(173, 358, 136, 23);
 		btnNewButton_2.setFont(new Font("Arial", Font.BOLD, 12));
 		panel.add(btnNewButton_2);
 		
-		 textArea = new JTextArea();
-		 textArea.setTabSize(5);
-		 textArea.setLineWrap(true);
-		 textArea.setWrapStyleWord(true);
+		 textArea = new JTextPane();
+		 textArea.setBounds(10, 10,345, 283);
+		 textArea.setEditable(true);
 		 textArea.setFont(new Font("Arial", Font.PLAIN, 12));
-		 textArea.setBounds(34, 24, 255, 277);
-		panel.add(textArea);
-	
-		
-		 textArea_1 = new JTextArea();
-		 textArea_1.setBounds(312, 21, 255, 280);
-		 textArea_1.setLineWrap(true);
-		panel.add(textArea_1);
+		 ap=new JScrollPane(textArea);
+		 ap.setBounds(10, 10,345, 283);
+		 panel.add(ap);
+		 
+
+		 textArea_1 = new JTextPane();
+		 textArea_1.setBounds(406, 13,345, 280);
+		 textArea_1.setEditable(true);
+		 textArea_1.setFont(new Font("Arial", Font.PLAIN, 12));
+
+		 ap2=new JScrollPane(textArea_1);
+		 ap2.setBounds(406, 13,345, 280);
+		 panel.add(ap2);
+		 
 		
 		JButton btnNewButton = new JButton("CARGAR ARCHIVO");
 		btnNewButton.setBounds(20, 358, 136, 23);
@@ -103,6 +114,7 @@ public class Integ extends JFrame{
 		panel.add(btnNewButton);
 	//_____________________________________________________________________EVENTO LO ESCRITO EN TEXT AREA 
 		JButton btnNewButton_3 = new JButton("GUARDAR");
+		btnNewButton_3.setBounds(20, 324, 136, 23);
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -113,7 +125,6 @@ public class Integ extends JFrame{
 			}
 		});
 		btnNewButton_3.setFont(new Font("Arial", Font.BOLD, 12));
-		btnNewButton_3.setBounds(20, 324, 136, 23);
 		panel.add(btnNewButton_3);
   
 
