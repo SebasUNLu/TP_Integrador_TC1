@@ -1,5 +1,10 @@
+package integrador;
+
 import java_cup.runtime.Symbol;
 import java.util.ArrayList;
+import javax.swing.JTextArea;
+import jflex.core.sym;
+import javax.swing.JOptionPane;
 
 %%
 /*%cupsym Simbolo*/
@@ -12,11 +17,11 @@ import java.util.ArrayList;
 
 %{
     TablaSimbolos Tabla;
-    JTextPane textoArea;
+    JTextArea textoArea;
 %}
 
 
-LETRA = [a-zA-ZáéíóúÁÉÍÓÚ]
+LETRA = [a-zA-ZáéíóúÁÉÍÓÚâêîôû]
 DIGITO = [0-9]
 ESPACIO = [ \t\r\n]+
 ID = {LETRA}({LETRA}|{DIGITO}|_)*
@@ -85,7 +90,7 @@ COMENTARIO = "</" ~"/>"
                 TO.tipo = "";
                 TO.valor = "";
                 TO.longitud = 0;
-                System.out.println("Token LLAVE_CERRAR, encontrado Lexema "+ TO.nombre);
+                textoArea.append("Token ID encontrado, Lexema "+ yytext()+"\n");
                 Tabla.guardarTokenObject(TO);}
 
 {CONST_INT}		{TokenObject TO = new TokenObject();
@@ -94,7 +99,7 @@ COMENTARIO = "</" ~"/>"
                 TO.tipo = "";
                 TO.valor = yytext();
                 TO.longitud = 0;
-                System.out.println("Token CONST_INT, encontrado Lexema "+ yytext());
+                textoArea.append("Token CONST_INT encontrado, Lexema "+ yytext()+"\n");
                 Tabla.guardarTokenObject(TO);}
 
 {CONST_REAL}    {TokenObject TO = new TokenObject();
@@ -103,7 +108,7 @@ COMENTARIO = "</" ~"/>"
                 TO.tipo = "";
                 TO.valor = yytext();
                 TO.longitud = 0;
-                System.out.println("Token CONST_REAL, encontrado Lexema "+ yytext());
+                textoArea.append("Token CONST_REAL encontrado, Lexema "+ yytext()+"\n");
                 Tabla.guardarTokenObject(TO);}
 
 {CONST_STRING}  {TokenObject TO = new TokenObject();
@@ -112,14 +117,14 @@ COMENTARIO = "</" ~"/>"
                 TO.tipo = "";
                 TO.valor = yytext();
                 TO.longitud = Tabla.tamanoCadena(TO.valor);
-                System.out.println("Token CONST_STRING, encontrado Lexema "+ yytext());
+                textoArea.append("Token CONST_STRING encontrado, Lexema "+ yytext()+"\n");
                 Tabla.guardarTokenObject(TO);}
 
 {ESPACIO}       {}
 
 }
 
-[^]		{ throw new Error("Caracter no permitido: <" + yytext() + "> en la linea " + yyline); }
+[^]		{ JOptionPane.showMessageDialog(null, "Caracter no permitido: <" + yytext() + "> en la linea " + yyline, "Caracter no reconocido", JOptionPane.ERROR_MESSAGE); }
 
 
 

@@ -33,7 +33,7 @@ If ((actual > 2) and (actual <> 0)){
 	palabra = "es mayor"
 }
 Else{
-	PRINT “no es mayor que 2”
+	PRINT "no es mayor que 2"
 }
 
 
@@ -43,6 +43,5 @@ var = 7 * ( Iguales(contador+17,[(suma+4)*2,actual,85/5]) + 5)
 var = Iguales(contador+17,[(suma+5)*2,actual,85/5],[contador,actual+6-8,suma],[6/3])
 
 </ --------------</----------------/>---------------- />
-
 
 END.PROGRAM

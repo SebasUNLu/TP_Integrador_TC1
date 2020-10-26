@@ -1,0 +1,10 @@
+Cosas a aclarar:
+-Al cargar el Lexico.java en el proyecto, añadir al cnstructor:
+(JTextArea t, TablaSimbolos tabla), y asignarlos a las instancias exitentes ya definidas en Lexico.flex
+-La libreria miglayout-4.0-swing esta en un drive: https://drive.google.com/file/d/1N7HBgr4YeGrdUO0e5yZe2QUuthILyINY/view?usp=sharing.
+Esta librería es para buscar los archivos a cargar.
+-Usamos la clase JOptionPane para mostrar errores.
+-Los textArea y los botones no aparecen hasta que se redimensiona la ventana (no sabemos el porque) 
+-La longitud de los que no son const_string es 0, ya que en el ejemplo que muestra en el pdf del trabajo no especificaba nada.
+-Al guardar los datos del primer textArea sin haber cargado un archivo, se debe especificar el nombre del archivo nuevo, indicando la extension (en este caso, .txt).
+-

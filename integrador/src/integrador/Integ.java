@@ -1,6 +1,7 @@
 package integrador;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -23,6 +24,7 @@ import java.awt.event.ActionEvent;
 
 import java_cup.runtime.Symbol;
 import jflex.core.sym;
+import javax.swing.JLabel;
 
 public class Integ extends JFrame{
 
@@ -34,6 +36,8 @@ public class Integ extends JFrame{
     private JScrollPane ap;
     private JScrollPane ap2;
 	private String ruta;
+	private inputOutputFile iof = new inputOutputFile();
+	private JLabel label_ruta;
 
 	private TablaSimbolos Tabla;
 
@@ -55,27 +59,32 @@ public class Integ extends JFrame{
 		JButton btnNewButton_1 = new JButton("SIMBOLOS");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				iof.guardarArchivo(Tabla.TBL_Simbolos);
 			}
 		});
-		btnNewButton_1.setBounds(334, 358, 136, 23);
+		btnNewButton_1.setBounds(615, 357, 136, 23);
 		btnNewButton_1.setFont(new Font("Arial", Font.BOLD, 12));
 		panel.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("ANALIZAR");
-		btnNewButton_2.setBounds(173, 358, 136, 23);
+		btnNewButton_2.setBounds(322, 357, 136, 23);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					fichero=new FileReader(ruta);
-					Lexico lex= new Lexico(fichero,Tabla,textArea_1);
-					lex.next_token();
-					fichero.close();
-				} catch (FileNotFoundException e) {
-					
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if(ruta == null) {
+					JOptionPane.showMessageDialog(null, "No se detecto ningun archivo cargado\nDebe cargar un archivo antes", "Ruta no especificada", JOptionPane.ERROR_MESSAGE);
+				}else {
+					textArea_1.setText("");
+					try {
+						fichero=new FileReader(ruta);
+						Lexico lex= new Lexico(fichero,textArea_1,Tabla);
+						lex.next_token();
+						fichero.close();
+					} catch (FileNotFoundException e) {
+						
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				
 				
@@ -104,7 +113,7 @@ public class Integ extends JFrame{
 		 
 		
 		JButton btnNewButton = new JButton("CARGAR ARCHIVO");
-		btnNewButton.setBounds(20, 358, 136, 23);
+		btnNewButton.setBounds(166, 357, 136, 23);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
                       try {
@@ -121,7 +130,7 @@ public class Integ extends JFrame{
 		panel.add(btnNewButton);
 	//_____________________________________________________________________EVENTO LO ESCRITO EN TEXT AREA 
 		JButton btnNewButton_3 = new JButton("GUARDAR");
-		btnNewButton_3.setBounds(20, 324, 136, 23);
+		btnNewButton_3.setBounds(20, 357, 136, 23);
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -133,6 +142,28 @@ public class Integ extends JFrame{
 		});
 		btnNewButton_3.setFont(new Font("Arial", Font.BOLD, 12));
 		panel.add(btnNewButton_3);
+		
+		JButton btnClear = new JButton("Clear");
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textArea.setText("");
+			}
+		});
+		btnClear.setBounds(129, 293, 89, 23);
+		panel.add(btnClear);
+		
+		JButton btnClear_1 = new JButton("Clear");
+		btnClear_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textArea_1.setText("");
+			}
+		});
+		btnClear_1.setBounds(536, 293, 89, 23);
+		panel.add(btnClear_1);
+		
+		label_ruta = new JLabel("Ruta indicada:");
+		label_ruta.setBounds(10, 332, 741, 14);
+		panel.add(label_ruta);
   
 
 	
@@ -149,13 +180,18 @@ public class Integ extends JFrame{
 	//___________________________________________________________________________________GUARDA LO QUE ESTA EN TEXTAREA EN EL ARCHIVO EN UBICACION
 			protected void guardarARc() throws IOException {
 				
-				String str = textArea.getText();
-				textArea.setText("");
-				FileWriter escribir = new FileWriter(ruta);
-				  for (int i=0;i<str.length();i++) {
-					  escribir.write(str.charAt(i));
-				  }
-				  escribir.close();
+				if(ruta == null) {
+					ruta = JOptionPane.showInputDialog("Ingrese el nombre del archivo a guardar\nSe guardara en la carpeta del proyecto");
+				}
+				if(ruta !=null) {
+					String str = textArea.getText();
+					textArea.setText("");
+					FileWriter escribir = new FileWriter(ruta);
+					  for (int i=0;i<str.length();i++) {
+						  escribir.write(str.charAt(i));
+					  }
+					  escribir.close();
+				}
 			}
 	
 	
@@ -181,7 +217,7 @@ public class Integ extends JFrame{
 						     }
 		        fichero.close();
 				this.textArea.setText(str);
-                
+                label_ruta.setText("Ruta indicada: "+archivo.getAbsolutePath());
 				};
 		
 	}
