@@ -28,7 +28,7 @@ ID = {LETRA}({LETRA}|{DIGITO}|_)*
 CONST_INT = {DIGITO}+
 CONST_REAL = {DIGITO}*[.]{DIGITO}+
 CONST_STRING = "\"" .* "\""
-COMENTARIO = "</" ~"/>"
+COMENTARIO = ("</" ~"/>"|"</" ~"</" ~"/>" ~"/>")
 
 %%
 
