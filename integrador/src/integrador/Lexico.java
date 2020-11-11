@@ -390,6 +390,34 @@ public class Lexico implements java_cup.runtime.Scanner {
   private boolean zzEOFDone;
 
   /* user code: */
+final int MAX_STRING = 30;
+final int MAX_INT = Short.MAX_VALUE;
+final float MAX_FLOAT = Float.MAX_VALUE;
+
+
+private boolean verify_real(String x){
+	float f = Float.parseFloat(x);
+	if(f<MAX_FLOAT || f>MAX_FLOAT){
+		throw new NumberFormatException();
+	}
+	return true;
+}
+
+private boolean verify_int(String x){
+	int f = Integer.parseInt(x);
+	if(f<MAX_INT || f>MAX_INT){
+		throw new NumberFormatException();
+	}
+	return true;
+}
+
+
+private boolean verify_string(String x){
+	if(x.length() > MAX_STRING){
+		throw new NumberFormatException();
+	}
+	return true;
+}
     TablaSimbolos Tabla;
     JTextArea textoArea;
 
@@ -399,9 +427,9 @@ public class Lexico implements java_cup.runtime.Scanner {
    *
    * @param   in  the java.io.Reader to read input from.
    */
-  public Lexico(java.io.Reader in, JTextArea text, TablaSimbolos tabla) {
+  public Lexico(java.io.Reader in, JTextArea t, TablaSimbolos tabla) {
 	this.Tabla = tabla;
-	this.textoArea = text;
+	this.textoArea = t;
     this.zzReader = in;
   }
 
@@ -942,7 +970,8 @@ public class Lexico implements java_cup.runtime.Scanner {
                 TO.nombre = "_" + yytext();
                 TO.token = "CONST_STRING";
                 TO.tipo = "";
-                TO.valor = yytext();
+                if (verify_int(yytext()))
+					TO.valor = yytext() ;
                 TO.longitud = Tabla.tamanoCadena(TO.valor);
                 textoArea.append("Token CONST_STRING encontrado, Lexema "+ yytext()+"\n");
                 Tabla.guardarTokenObject(TO);

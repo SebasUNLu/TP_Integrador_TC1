@@ -390,6 +390,34 @@ public class Lexico implements java_cup.runtime.Scanner {
   private boolean zzEOFDone;
 
   /* user code: */
+final int MAX_STRING = 30;
+final int MAX_INT = Short.MAX_VALUE;
+final float MAX_FLOAT = Float.MAX_VALUE;
+
+
+private boolean verify_real(String x){
+	float f = Float.parseFloat(x);
+	if(f<MAX_FLOAT || f>MAX_FLOAT){
+		throw new NumberFormatException();
+	}
+	return true;
+}
+
+private boolean verify_int(String x){
+	int f = Integer.parseInt(x);
+	if(f<MAX_INT || f>MAX_INT){
+		throw new NumberFormatException();
+	}
+	return true;
+}
+
+
+private boolean verify_string(String x){
+	if(x.length() > MAX_STRING){
+		throw new NumberFormatException();
+	}
+	return true;
+}
     TablaSimbolos Tabla;
     JTextArea textoArea;
 
@@ -857,14 +885,16 @@ public class Lexico implements java_cup.runtime.Scanner {
             // fall through
           case 57: break;
           case 12:
-            { TokenObject TO = new TokenObject();
-                TO.nombre = "_" + yytext();
-                TO.token = "CONST_INT";
-                TO.tipo = "";
-                TO.valor = yytext();
-                TO.longitud = 0;
-                textoArea.append("Token CONST_INT encontrado, Lexema "+ yytext()+"\n");
-                Tabla.guardarTokenObject(TO);
+            { if verify_int(yytext()){
+                    TokenObject TO = new TokenObject();
+                    TO.nombre = "_" + yytext();
+                    TO.token = "CONST_INT";
+                    TO.tipo = "";
+                    TO.valor = yytext();
+                    TO.longitud = 0;
+                    textoArea.append("Token CONST_INT encontrado, Lexema "+ yytext()+"\n");
+                    Tabla.guardarTokenObject(TO);
+                }
             }
             // fall through
           case 58: break;
@@ -936,26 +966,30 @@ public class Lexico implements java_cup.runtime.Scanner {
             // fall through
           case 70: break;
           case 25:
-            { TokenObject TO = new TokenObject();
-                TO.nombre = "_" + yytext();
-                TO.token = "CONST_STRING";
-                TO.tipo = "";
-                TO.valor = yytext();
-                TO.longitud = Tabla.tamanoCadena(TO.valor);
-                textoArea.append("Token CONST_STRING encontrado, Lexema "+ yytext()+"\n");
-                Tabla.guardarTokenObject(TO);
+            { if verify_string(yytext()){
+                    TokenObject TO = new TokenObject();
+                    TO.nombre = "_" + yytext();
+                    TO.token = "CONST_STRING";
+                    TO.tipo = "";
+				    TO.valor = yytext();
+                    TO.longitud = Tabla.tamanoCadena(TO.valor);
+                    textoArea.append("Token CONST_STRING encontrado, Lexema "+ yytext()+"\n");
+                    Tabla.guardarTokenObject(TO);
+                }
             }
             // fall through
           case 71: break;
           case 26:
-            { TokenObject TO = new TokenObject();
-                TO.nombre = "_" + yytext();
-                TO.token = "CONST_REAL";
-                TO.tipo = "";
-                TO.valor = yytext();
-                TO.longitud = 0;
-                textoArea.append("Token CONST_REAL encontrado, Lexema "+ yytext()+"\n");
-                Tabla.guardarTokenObject(TO);
+            { if verify_real(yytext()){
+                    TokenObject TO = new TokenObject();
+                    TO.nombre = "_" + yytext();
+                    TO.token = "CONST_REAL";
+                    TO.tipo = "";
+                    TO.valor = yytext();
+                    TO.longitud = 0;
+                    textoArea.append("Token CONST_REAL encontrado, Lexema "+ yytext()+"\n");
+                    Tabla.guardarTokenObject(TO);
+                    }
             }
             // fall through
           case 72: break;
