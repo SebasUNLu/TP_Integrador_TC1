@@ -10,6 +10,7 @@ public class TokenObject implements Serializable {
 	String valor;
 	int longitud;
 	
+	//public validarInteger
 	public String getNombre() {
 		return nombre;
 	}

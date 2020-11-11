@@ -16,6 +16,36 @@ import javax.swing.JOptionPane;
 %char
 
 %{
+	final int MAX_STRING = 30;
+final int MAC_INT = Short.MAX_VALUE;
+final float MAX_FLOAT = Float.MAX_VALUE;
+
+
+private boolean verify_real(String x){
+	float f = Float.parseFloat(x);
+	if(f<MAX_FLOAT || f>MAX_FLOAT){
+		throw new NumbeFormatException();
+	}
+	return true;
+}
+
+private boolean verify_int(String x){
+	int f = Internet.parseInt(x);
+	if(f<MAX_INT || f>MAX_INT){
+		throw new NumbeFormatException();
+	}
+	return true;
+}
+
+private boolean verify_string(String x){
+	if(x.lenght() > MAX_STRING){
+		throw 
+private boolean verify_string(String x){
+	if(x.lenght() > MAX_STRING){
+		throw new NumbeFormatException();
+	}
+	return true;
+}
     TablaSimbolos Tabla;
     JTextArea textoArea;
 %}
@@ -115,7 +145,8 @@ COMENTARIO = ("</" ~"/>"|"</" ~"</" ~"/>" ~"/>")
                 TO.nombre = "_" + yytext();
                 TO.token = "CONST_STRING";
                 TO.tipo = "";
-                TO.valor = yytext();
+                if verify_int(yytext()) then 
+					TO.valor = yytext() ;
                 TO.longitud = Tabla.tamanoCadena(TO.valor);
                 textoArea.append("Token CONST_STRING encontrado, Lexema "+ yytext()+"\n");
                 Tabla.guardarTokenObject(TO);}
