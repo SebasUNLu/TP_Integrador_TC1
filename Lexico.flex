@@ -23,16 +23,18 @@ final float MAX_FLOAT = Float.MAX_VALUE;
 
 private boolean verify_real(String x){
 	float f = Float.parseFloat(x);
-	if(f<MAX_FLOAT || f>MAX_FLOAT){
-		throw new NumberFormatException();
+	if(f< -MAX_FLOAT || f>MAX_FLOAT){
+		/*throw new NumberFormatException();*/
+        System.out.println("Numero real no admitido");
 	}
 	return true;
 }
 
 private boolean verify_int(String x){
 	int f = Integer.parseInt(x);
-	if(f<MAX_INT || f>MAX_INT){
-		throw new NumberFormatException();
+	if(f< -MAX_INT || f>MAX_INT){
+		/*throw new NumberFormatException();*/
+        System.out.println("Numero Integer no admitido");
 	}
 	return true;
 }
@@ -40,7 +42,8 @@ private boolean verify_int(String x){
 
 private boolean verify_string(String x){
 	if(x.length() > MAX_STRING){
-		throw new NumberFormatException();
+		/*throw new NumberFormatException();*/
+        System.out.println("Asi no, bro, el String debe tener 30 caracteres o menos");
 	}
 	return true;
 }
@@ -56,7 +59,8 @@ ID = {LETRA}({LETRA}|{DIGITO}|_)*
 CONST_INT = {DIGITO}+
 CONST_REAL = {DIGITO}*[.]{DIGITO}+
 CONST_STRING = "\"" .* "\""
-COMENTARIO = ("</" ~"/>"|"</" ~"</" ~"/>" ~"/>")
+COMENTARIO = "</"~"</"~"/>"~"/>"
+
 
 %%
 
@@ -122,7 +126,7 @@ COMENTARIO = ("</" ~"/>"|"</" ~"</" ~"/>" ~"/>")
                 Tabla.guardarTokenObject(TO);}
 
 {CONST_INT}		{
-                if verify_int(yytext()){
+                if (verify_int(yytext())){
                     TokenObject TO = new TokenObject();
                     TO.nombre = "_" + yytext();
                     TO.token = "CONST_INT";
@@ -136,7 +140,7 @@ COMENTARIO = ("</" ~"/>"|"</" ~"</" ~"/>" ~"/>")
                 }
 
 {CONST_REAL}    {
-                if verify_real(yytext()){
+                if (verify_real(yytext())){
                     TokenObject TO = new TokenObject();
                     TO.nombre = "_" + yytext();
                     TO.token = "CONST_REAL";
@@ -149,7 +153,7 @@ COMENTARIO = ("</" ~"/>"|"</" ~"</" ~"/>" ~"/>")
                 }
 
 {CONST_STRING}  {
-                if verify_string(yytext()){
+                if (verify_string(yytext())){
                     TokenObject TO = new TokenObject();
                     TO.nombre = "_" + yytext();
                     TO.token = "CONST_STRING";

@@ -1,9 +1,6 @@
 </ prueba.txt />
 
-</ Recuerden modificar de este archivo todo componente lexico que definieron
-diferente en su lenguaje, como operador de asignación, apertura y cierre de
-ciclos y condicionales, operadores lógicos, nombres de tipos, etc. />
-
+</ Recuerden modificar de este archivo todo componente lexico que definieron diferente en su lenguaje, como operador de asignación, apertura y cierre de ciclos y condicionales, operadores lógicos, nombres de tipos, etc. />
 
 DECLARE
 [suma, contador, d1] := [FLOAT, INT, FLOAT]
