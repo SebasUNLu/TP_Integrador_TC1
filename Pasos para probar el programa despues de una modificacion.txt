@@ -1,0 +1,14 @@
+Pasos para probar el proyecto:
+-Ubicarse en la carpeta del repositorio (tiene que estar el Lexico.flex, una copia de Lexico.java y la carpeta "Integrador", del proyecto java).
+-Hacer las modificaciones necesarias en el Lexico.flex y guardarlas.
+-Con el JFLEX, seleccionar el Lexico.flex guardado, y clickear el boton "GENERATE" (Yo lo llevo al Escritorio para no hacer posibles cagadas D:).
+-Reemplazar el Lexico.java del repositorio con el nuevo.
+-Reemplazar el Lexico.java del proyecto java con el nuevo (Yo lo hago en Eclipse, con el poryecto abierto, arrastro el nuevo al paquete donde estánn las clases).
+-Abrir la clase Lexico y agregar al constructor lo siguiente (Usar el buscador [ctrl+f] para comodidad):
+    public Lexico(java.io.Reader in, JTextArea t, TablaSimbolos tabla) {
+    	this.Tabla = tabla;
+    	this.textoArea = t;
+        this.zzReader = in;
+      }
+(Esto último es necesario, ya que la clase Lexico utiliza directamente un JTextArea y un TablaSimbolos, pero estos no esta definidos en Lexico.java al principio).
+-Probar el programa nomas!
