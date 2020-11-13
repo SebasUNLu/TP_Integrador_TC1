@@ -22,30 +22,36 @@ final float MAX_FLOAT = Float.MAX_VALUE;
 
 
 private boolean verify_real(String x){
-	float f = Float.parseFloat(x);
+	boolean flag = true;
+    float flag = Float.parseFloat(x);
 	if(f< -MAX_FLOAT || f>MAX_FLOAT){
 		/*throw new NumberFormatException();*/
         System.out.println("Numero real no admitido");
+        flag = false;
 	}
-	return true;
+	return flag;
 }
 
 private boolean verify_int(String x){
-	int f = Integer.parseInt(x);
+	boolean flag = true;
+    int f = Integer.parseInt(x);
 	if(f< -MAX_INT || f>MAX_INT){
 		/*throw new NumberFormatException();*/
         System.out.println("Numero Integer no admitido");
+        flag = false;
 	}
-	return true;
+	return flag;
 }
 
 
 private boolean verify_string(String x){
-	if(x.length() > MAX_STRING){
+	boolean flag = true;
+    if(x.length() > MAX_STRING){
 		/*throw new NumberFormatException();*/
         System.out.println("Asi no, bro, el String debe tener 30 caracteres o menos");
+        flag = false;
 	}
-	return true;
+	return flag;
 }
     TablaSimbolos Tabla;
     JTextArea textoArea;
@@ -135,8 +141,7 @@ COMENTARIO = "</"~"</"~"/>"~"/>"
                     TO.longitud = 0;
                     textoArea.append("Token CONST_INT encontrado, Lexema "+ yytext()+"\n");
                     Tabla.guardarTokenObject(TO);
-                }
-    
+                    }
                 }
 
 {CONST_REAL}    {
@@ -162,7 +167,7 @@ COMENTARIO = "</"~"</"~"/>"~"/>"
                     TO.longitud = Tabla.tamanoCadena(TO.valor);
                     textoArea.append("Token CONST_STRING encontrado, Lexema "+ yytext()+"\n");
                     Tabla.guardarTokenObject(TO);
-                }
+                    }
                 }
 
 {ESPACIO}       {}
