@@ -16,14 +16,14 @@ import javax.swing.JOptionPane;
 %char
 
 %{
-final int MAX_STRING = 30;
+final int MAX_STRING = 32;
 final int MAX_INT = Short.MAX_VALUE;
 final float MAX_FLOAT = Float.MAX_VALUE;
 
 
 private boolean verify_real(String x){
 	boolean flag = true;
-    float flag = Float.parseFloat(x);
+    float f = Float.parseFloat(x);
 	if(f< -MAX_FLOAT || f>MAX_FLOAT){
 		/*throw new NumberFormatException();*/
         System.out.println("Numero real no admitido");
@@ -47,6 +47,7 @@ private boolean verify_int(String x){
 private boolean verify_string(String x){
 	boolean flag = true;
     if(x.length() > MAX_STRING){
+        System.out.println("palabra encontrada: "+x+", longitud = "+x.length());
 		/*throw new NumberFormatException();*/
         System.out.println("Asi no, bro, el String debe tener 30 caracteres o menos");
         flag = false;
@@ -65,7 +66,7 @@ ID = {LETRA}({LETRA}|{DIGITO}|_)*
 CONST_INT = {DIGITO}+
 CONST_REAL = {DIGITO}*[.]{DIGITO}+
 CONST_STRING = "\"" .* "\""
-COMENTARIO = "</"~"</"~"/>"~"/>"
+COMENTARIO = "</"~"/>"
 
 
 %%
