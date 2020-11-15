@@ -25,8 +25,7 @@ private boolean verify_real(String x){
 	boolean flag = true;
     float f = Float.parseFloat(x);
 	if(f< -MAX_FLOAT || f>MAX_FLOAT){
-		/*throw new NumberFormatException();*/
-        System.out.println("Numero real no admitido");
+        System.out.println("Numero Real detectado invalido: "+yytext()+"\nDebe ser menor a "+Float.toString(MAX_FLOAT));
         flag = false;
 	}
 	return flag;
@@ -36,20 +35,17 @@ private boolean verify_int(String x){
 	boolean flag = true;
     int f = Integer.parseInt(x);
 	if(f< -MAX_INT || f>MAX_INT){
-		/*throw new NumberFormatException();*/
-        System.out.println("Numero Integer no admitido");
+        System.out.println("Numero Integer detectado invalido: "+yytext()+"\nDebe ser menor a "+Integer.toString(MAX_INT));
         flag = false;
 	}
 	return flag;
 }
 
-
 private boolean verify_string(String x){
 	boolean flag = true;
     if(x.length() > MAX_STRING){
-        System.out.println("palabra encontrada: "+x+", longitud = "+x.length());
-		/*throw new NumberFormatException();*/
-        System.out.println("Asi no, bro, el String debe tener 30 caracteres o menos");
+        /*Debería tirar una excepcion o algo*/
+        System.out.println("Cadena detectada invalida: "+yytext()+"\nSu longitud debe ser de 30 caracteres o menos");
         flag = false;
 	}
 	return flag;
@@ -66,7 +62,25 @@ ID = {LETRA}({LETRA}|{DIGITO}|_)*
 CONST_INT = {DIGITO}+
 CONST_REAL = {DIGITO}*[.]{DIGITO}+
 CONST_STRING = "\"" .* "\""
-COMENTARIO = "</"~"/>"
+/*COMENTARIO = "</"~"/>"*/
+/*COMENTARIO_A = "</"~{COMENTARIO}*~"/>"*/
+
+/*COMENTARIO = "</"( [^/] | (\/+[^/>]) )*\/+\>*/
+
+/*COMENTARIO_APER = [\<][/]*/
+/*COMENTARIO_CIER = [\/][\>]*/
+/*COMENTARIO = {COMENTARIO_APER}[^*] ~{COMENTARIO_CIER}*/
+
+/*COMENTARIO Definitivo*/
+
+/*COMENTARIO = {COMENTARIO_APER} ({LETRA}|{DIGITO}|{ESPACIO}|"/>"|"</")* {COMENTARIO_CIER}*/
+
+/*Comentario verison 5476*/
+COMENTARIO_APER = [\<][\/]
+COMENTARIO_CIER = [\/][\>]
+COMENTARIO = {COMENTARIO_APER} ( [^/] | \/ [^>] )* {COMENTARIO_CIER}
+
+
 
 
 %%
