@@ -8,10 +8,98 @@ import java_cup.runtime.*;
 
 /*Definicion de simbolos*/
 /*Terminales*/
-terminal ASIGN, DOS_PUNTOS, COMA, PUNTO, P_COMA, GUION_BAJO, WHILE, IF, ELSE, PRINT, BEGIN_PROGRAM, END_PROGRAM, DECLARE, END_DECLARE, END, INT, STRING, FLOAT, CHAR, AND, PIPE, PARENTESIS_ABRIR, PARENTESIS_CERRAR, CORCHETE_ABRIR, CORCHETE_CERRAR, LLAVE_ABRIR, LLAVE_CERRAR, IGUALES_FUNC, ID, CONST_INT, CONST_REAL, CONST_STRING, TRUE, FALSE;
+terminal ASIGN, DOS_PUNTOS, COMA, PUNTO, P_COMA, GUION_BAJO, WHILE, IF, ELSE, PRINT, BEGIN_PROGRAM, END_PROGRAM, DECLARE, END_DECLARE, END, INT, STRING, FLOAT, CHAR, AND, OR, PIPE, PARENTESIS_ABRIR, PARENTESIS_CERRAR, CORCHETE_ABRIR, CORCHETE_CERRAR, LLAVE_ABRIR, LLAVE_CERRAR, IGUALES_FUNC, ID, CONST_INT, CONST_REAL, CONST_STRING, TRUE, FALSE, IGUAL, SUMA, RESTA, DIVISION, MULTIPLICAR, MAYOR_QUE, MENOR_QUE, MAYOR_IGUAL_QUE, MENOR_IGUAL_QUE, COMPARAR, DISTINTO;
+
 /*No Terminales*/
-non terminal prg', prg, declaraciones, sentencias, sentencia, while, if, asignacion_s, print, iguales, list_declaraciones, declaracion, dec, tipo, list_condicion, condicion, argumento, expresion, termino, factor, constante_int, constante_real, constante_string, listas_expresion, list_exp, 
+non terminal prg', prg, declaraciones, sentencias, sentencia, while, if, asignacion_s, print, iguales, list_declaraciones, declaracion, dec, tipo, list_condicion, condicion, argumento, expresion, termino, factor, constante, listas_expresion, list_exp, 
 
+start with prg';
 
+/*programa*/
+prg' ::= prg
+
+prg ::= declaraciones BEGIN_PROGRAM sentencias END_PROGRAM
+
+/*sentencias*/
+sentencias ::= sentencia
+    | sentencias sentencia
+
+sentencia ::= while
+    | if
+    | asignacion_s
+    | print 
+    | iguales
+
+/*declaraciones*/
+declaraciones ::= DECLARE list_declaraciones END_DECLARE
+
+list_declaraciones ::= declaracion
+    | list_declaraciones declaracion
+
+declaracion ::= CORCHETE_ABRIR dec CORCHETE_CERRAR
+
+dec ::= ID CORCHETE_CERRAR ASIGN CORCHETE_ABRIR tipo 
+    | ID dec tipo 
+
+tipo ::= FLOAT
+    | INT 
+    | STRING
+
+/*while*/
+while ::= WHILE list_condicion LLAVE_ABRIR sentencias LLAVE_CERRAR
+
+/*if*/
+if ::= IF list_condicion LLAVE_ABRIR sentencias LLAVE_CERRAR
+    |  IF list_condicion LLAVE_ABRIR sentencias LLAVE_CERRAR ELSE LLAVE_ABRIR sentencias LLAVE_CERRAR
+
+/*condiciones*/
+list_condicion ::= condicion 
+    | PARENTESIS_ABRIR list_condicion AND condicion PARENTESIS_CERRAR
+    | PARENTESIS_ABRIR list_condicion OR condicion PARENTESIS_CERRAR 
+
+condicion ::= PARENTESIS_ABRIR argumento MENOR_QUE argumento PARENTESIS_CERRAR
+    | PARENTESIS_ABRIR argumento MAYOR_QUE argumento PARENTESIS_CERRAR
+    | PARENTESIS_ABRIR argumento MENOR_IGUAL_QUE argumento PARENTESIS_CERRAR
+    | PARENTESIS_ABRIR argumento MAYOR_IGUAL_QUE argumento PARENTESIS_CERRAR
+    | PARENTESIS_ABRIR argumento COMPARAR argumento PARENTESIS_CERRAR
+    | PARENTESIS_ABRIR argumento DISTINTO argumento PARENTESIS_CERRAR
+    | iguales
+    | TRUE 
+    | FALSE 
+
+/*asignacion_s*/
+asignacion_s ::= ID ASIGN expresion
+
+/*Expresiones*/
+expresion ::= expresion SUMA termino
+    | expresion RESTA termino
+    | termino
+
+termino ::= termino MULTIPLICAR factor
+    | termino DIVISION factor
+    | factor
+
+factor ::= ID
+    | constante
+    | PARENTESIS_ABRIR expresion PARENTESIS_CERRAR
+
+/*argumento*/
+argumento ::= ID
+    | constante 
+
+/*PRINT*/
+print ::= PRINT CONST_STRING
+
+/*IGUALES_FUNC*/
+iguales ::= IGUALES_FUNC PARENTESIS_ABRIR expresion COMA listas_expresion PARENTESIS_CERRAR
+
+listas_expresion ::= CORCHETE_ABRIR list_exp CORCHETE_CERRAR 
+    | listas_expresion COMA CORCHETE_ABRIR list_exp CORCHETE_CERRAR
+
+list_exp ::= expresion
+    | list_exp expresion
+
+constante ::= CONST_INT 
+    | CONST_REAL 
 
 
