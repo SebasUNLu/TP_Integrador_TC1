@@ -49,14 +49,15 @@ public class Integ extends JFrame{
 //___________________________________________________________________________AREA DE OBJETOS 
 	private void initialize() {
 		
-		this.setBounds(100, 100,797,500);
+		this.setBounds(100, 100,1076,520);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
+	
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(176, 196, 222));
 		this.getContentPane().add(panel, BorderLayout.CENTER);
-		panel.setLayout(null);
 		JButton btnNewButton_1 = new JButton("Generar Tabla de Simbolos");
+		btnNewButton_1.setBounds(825, 419, 225, 36);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(ruta==null) {
@@ -72,7 +73,7 @@ public class Integ extends JFrame{
 				
 			}
 		});
-		btnNewButton_1.setBounds(532, 391, 225, 36);
+		panel.setLayout(null);
 		btnNewButton_1.setFont(new Font("Arial", Font.BOLD, 12));
 		panel.add(btnNewButton_1);
 		
@@ -108,17 +109,22 @@ public class Integ extends JFrame{
 		 textArea.setEditable(true);
 		 textArea.setFont(new Font("Arial", Font.PLAIN, 12));
 		 ap=new JScrollPane(textArea);
-		 ap.setBounds(10, 32,345, 283);
+		 ap.setBounds(10, 32, 345, 283);
 		 panel.add(ap);
 		 
-
 		 textArea_1 = new JTextArea();
-		 textArea_1.setBounds(412, 35,345, 280);
-		 textArea_1.setEditable(true);
-		 textArea_1.setFont(new Font("Arial", Font.PLAIN, 12));
+		 textArea_1.setBounds(359, 33, 343, 278);
+			panel.add(textArea_1);
+			textArea_1.setEditable(true);
+			textArea_1.setFont(new Font("Arial", Font.PLAIN, 12));
+		 
+		 
 		 ap2=new JScrollPane(textArea_1);
-		 ap2.setBounds(412, 35,345, 280);
+		 ap2.setBounds(359, 32, 345, 283);
 		 panel.add(ap2);
+		 
+		 
+		 
 		 
 		
 		JButton btnNewButton = new JButton("CARGAR ARCHIVO");
@@ -153,21 +159,21 @@ public class Integ extends JFrame{
 		panel.add(btnNewButton_3);
 		
 		JButton btnClear = new JButton("Clear");
+		btnClear.setBounds(142, 326, 89, 23);
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				textArea.setText("");
 			}
 		});
-		btnClear.setBounds(142, 326, 89, 23);
 		panel.add(btnClear);
 		
 		JButton btnClear_1 = new JButton("Clear");
+		btnClear_1.setBounds(489, 326, 89, 23);
 		btnClear_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				textArea_1.setText("");
 			}
 		});
-		btnClear_1.setBounds(546, 324, 89, 23);
 		panel.add(btnClear_1);
 		
 		label_ruta = new JLabel("Ruta indicada:");
@@ -178,11 +184,12 @@ public class Integ extends JFrame{
 		lblArchivo.setBounds(10, 11, 99, 14);
 		panel.add(lblArchivo);
 		
-		JLabel lblResultadosDeAnlisis = new JLabel("Resultados de An\u00E1lisis:");
+		JLabel lblResultadosDeAnlisis = new JLabel("Resultados del Lexico:");
 		lblResultadosDeAnlisis.setBounds(413, 10, 136, 14);
 		panel.add(lblResultadosDeAnlisis);
 		
 		JButton btnNewButton_4 = new JButton("Quitar Archivo");
+		btnNewButton_4.setBounds(78, 427, 120, 23);
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ruta=null;
@@ -191,8 +198,31 @@ public class Integ extends JFrame{
 				textArea_1.setText("");
 			}
 		});
-		btnNewButton_4.setBounds(78, 427, 120, 23);
 		panel.add(btnNewButton_4);
+		
+
+		
+		
+		JTextArea textArea_2 = new JTextArea();
+		textArea_2.setBounds(714, 32, 336, 280);
+		panel.add(textArea_2);
+		
+		JScrollPane ap3 = new JScrollPane(textArea_2);
+		ap3.setBounds(714, 32, 336, 283);
+		panel.add(ap3);
+		
+		JButton btnClear_2 = new JButton("   Clear");
+		btnClear_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textArea_2.setText("");
+			}
+		});
+		btnClear_2.setBounds(839, 326, 89, 23);
+		panel.add(btnClear_2);
+		
+		JLabel lblNewLabel = new JLabel("Resultados Sintactico:");
+		lblNewLabel.setBounds(781, 11, 159, 14);
+		panel.add(lblNewLabel);
   
 
 	
