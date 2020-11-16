@@ -1,6 +1,6 @@
 package integrador;
 
-import java_cup.runtime.Symbol;
+import java_cup.runtime.*;
 import java.util.ArrayList;
 import javax.swing.JTextArea;
 import jflex.core.sym;
@@ -62,22 +62,6 @@ ID = {LETRA}({LETRA}|{DIGITO}|_)*
 CONST_INT = {DIGITO}+
 CONST_REAL = {DIGITO}*[.]{DIGITO}+
 CONST_STRING = "\"" .* "\""
-/*COMENTARIO = "</"~"/>"*/
-/*COMENTARIO_A = "</"~{COMENTARIO}*~"/>"*/
-
-/*COMENTARIO = "</"( [^/] | (\/+[^/>]) )*\/+\>*/
-
-/*COMENTARIO_APER = [\<][/]*/
-/*COMENTARIO_CIER = [\/][\>]*/
-/*COMENTARIO = {COMENTARIO_APER}[^*] ~{COMENTARIO_CIER}*/
-
-/*COMENTARIO Definitivo*/
-
-/*COMENTARIO = {COMENTARIO_APER} ({LETRA}|{DIGITO}|{ESPACIO}|"/>"|"</")* {COMENTARIO_CIER}*/
-
-/*Comentario verison 5476*/
-/*COMENTARIO = {COMENTARIO_APER} ( [^/] | \/ [^>] )* {COMENTARIO_CIER}*/
-
 COMENTARIO = "</" ~ ( [\/][\>] | [\<][\/]~[\/][\>]~[\/][\>] ) 
 
 
@@ -87,52 +71,92 @@ COMENTARIO = "</" ~ ( [\/][\>] | [\<][\/]~[\/][\>]~[\/][\>] )
 
 {COMENTARIO}    {/**/}
 
-":="    	    {textoArea.append("Token ASIGN encontrado, Lexema "+ yytext()+"\n");}
-":"             {textoArea.append("Token DOS_PUNTOS encontrado, Lexema "+ yytext()+"\n");}
-","	            {textoArea.append("Token COMA encontrado, Lexema "+ yytext()+"\n");}
-"."	            {textoArea.append("Token PUNTO encontrado, Lexema "+ yytext()+"\n");}
-";"             {textoArea.append("Token P_COMA encontrado, Lexema "+ yytext()+"\n");}
-"_"             {textoArea.append("Token GUION_BAJO encontrado, Lexema "+ yytext()+"\n");}
-"while"         {textoArea.append("Token WHILE encontrado, Lexema "+ yytext()+"\n");}
-"If"            {textoArea.append("Token IF encontrado, Lexema "+ yytext()+"\n");}
-"Else"          {textoArea.append("Token ELSE encontrado, Lexema "+ yytext()+"\n");}
-"PRINT"         {textoArea.append("Token PRINT encontrado, Lexema "+ yytext()+"\n");}
-"BEGIN.PROGRAM" {textoArea.append("Token BEGIN_PROGRAM encontrado, Lexema "+ yytext()+"\n");}
-"END.PROGRAM"   {textoArea.append("Token END_PROGRAM encontrado, Lexema "+ yytext()+"\n");}
-"DECLARE"	    {textoArea.append("Token DECLARE encontrado, Lexema "+ yytext()+"\n");}
-"ENDDECLARE"    {textoArea.append("Token END_DECLARE encontrado, Lexema "+ yytext()+"\n");}
-"END"	        {textoArea.append("Token END encontrado, Lexema "+ yytext()+"\n");}        
-"INT"           {textoArea.append("Token INT encontrado, Lexema "+ yytext()+"\n");}
-"STRING"        {textoArea.append("Token STRING encontrado, Lexema "+ yytext()+"\n");}
-"FLOAT"         {textoArea.append("Token FLOAT encontrado, Lexema "+ yytext()+"\n");}
-"CHAR"          {textoArea.append("Token CHAR encontrado, Lexema "+ yytext()+"\n");}
-"and"           {textoArea.append("Token AND encontrado, Lexema "+ yytext()+"\n");}
+":="    	    {textoArea.append("Token ASIGN encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.ASIGN, yytext());}
+":"             {textoArea.append("Token DOS_PUNTOS encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.DOS_PUNTOS, yytext());}
+","	            {textoArea.append("Token COMA encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.COMA, yytext());}
+"."	            {textoArea.append("Token PUNTO encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.PUNTO, yytext());}
+";"             {textoArea.append("Token P_COMA encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.P_COMA, yytext());}
+"_"             {textoArea.append("Token GUION_BAJO encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.GUION_BAJO, yytext());}
+"while"         {textoArea.append("Token WHILE encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.WHILE, yytext());}
+"If"            {textoArea.append("Token IF encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.IF, yytext());}
+"Else"          {textoArea.append("Token ELSE encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.ELSE, yytext());}
+"PRINT"         {textoArea.append("Token PRINT encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.PRINT, yytext());}
+"BEGIN.PROGRAM" {textoArea.append("Token BEGIN_PROGRAM encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.BEGIN_PROGRAM, yytext());}
+"END.PROGRAM"   {textoArea.append("Token END_PROGRAM encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.END_PROGRAM, yytext());}
+"DECLARE"	    {textoArea.append("Token DECLARE encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.DECLARE, yytext());}
+"ENDDECLARE"    {textoArea.append("Token END_DECLARE encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.END_DECLARE, yytext());}
+"END"	        {textoArea.append("Token END encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.END, yytext());}        
+"INT"           {textoArea.append("Token INT encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.INT, yytext());}
+"STRING"        {textoArea.append("Token STRING encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.STRING, yytext());}
+"FLOAT"         {textoArea.append("Token FLOAT encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.FLOAT, yytext());}
+"CHAR"          {textoArea.append("Token CHAR encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.CHAR, yytext());}
+"and"           {textoArea.append("Token AND encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.AND, yytext());}
 
 /*Operadores*/
-"="     {textoArea.append("Token IGUAL encontrado, Lexema "+ yytext()+"\n");}
-"+"     {textoArea.append("Token SUMA encontrado, Lexema "+ yytext()+"\n");}
-"-"     {textoArea.append("Token RESTA encontrado, Lexema "+ yytext()+"\n");}
-"/"     {textoArea.append("Token DIVISION encontrado, Lexema "+ yytext()+"\n");}
-"*"     {textoArea.append("Token MULTIPLICAR encontrado, Lexema "+ yytext()+"\n");}
-">"     {textoArea.append("Token MAYOR_QUE encontrado, Lexema "+ yytext()+"\n");}
-"<"	    {textoArea.append("Token MENOR_QUE encontrado, Lexema "+ yytext()+"\n");}
-">="	{textoArea.append("Token MAYOR_IGUAL_QUE encontrado, Lexema "+ yytext()+"\n");}
-"<="	{textoArea.append("Token MENOR_IGUAL_QUE encontrado, Lexema "+ yytext()+"\n");}
-"=="    {textoArea.append("Token COMPARAR encontrado, Lexema "+ yytext()+"\n");}
-"<>"    {textoArea.append("Token DISTINTO encontrado, Lexema "+ yytext()+"\n");}
-"&"     {textoArea.append("Token AND encontrado, Lexema "+ yytext()+"\n");}
-"|"     {textoArea.append("Token PIPE encontrado, Lexema "+ yytext()+"\n");}
+"="     {textoArea.append("Token IGUAL encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.IGUAL, yytext());}
+"+"     {textoArea.append("Token SUMA encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.SUMA, yytext());}
+"-"     {textoArea.append("Token RESTA encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.RESTA, yytext());}
+"/"     {textoArea.append("Token DIVISION encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.DIVISION, yytext());}
+"*"     {textoArea.append("Token MULTIPLICAR encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.MULTIPLICAR, yytext());}
+">"     {textoArea.append("Token MAYOR_QUE encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.MAYOR_QUE, yytext());}
+"<"	    {textoArea.append("Token MENOR_QUE encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.MENOR_QUE, yytext());}
+">="	{textoArea.append("Token MAYOR_IGUAL_QUE encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.MAYOR_IGUAL_QUE, yytext());}
+"<="	{textoArea.append("Token MENOR_IGUAL_QUE encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.MENOR_IGUAL_QUE, yytext());}
+"=="    {textoArea.append("Token COMPARAR encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.COMPARAR, yytext());}
+"<>"    {textoArea.append("Token DISTINTO encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.DISTINTO, yytext());}
+"&"     {textoArea.append("Token AND encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.AND, yytext());}
+"|"     {textoArea.append("Token PIPE encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.PIPE, yytext());}
 
 /*Parentesis*/
-"("     {textoArea.append("Token PARENTESIS_ABRIR encontrado, Lexema "+ yytext()+"\n");}
-")"     {textoArea.append("Token PARENTESIS_CERRAR encontrado, Lexema "+ yytext()+"\n");}
-"["     {textoArea.append("Token CORCHETE-ABRIR encontrado, Lexema "+ yytext()+"\n");}
-"]"     {textoArea.append("Token CORCHETE_CERRAR encontrado, Lexema "+ yytext()+"\n");}
-"{"     {textoArea.append("Token LLAVE_ABRIR encontrado, Lexema "+ yytext()+"\n");}
-"}"     {textoArea.append("Token LLAVE_CERRAR encontrado, Lexema "+ yytext()+"\n");}
+"("     {textoArea.append("Token PARENTESIS_ABRIR encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.PARENTESIS_ABRIR, yytext());}
+")"     {textoArea.append("Token PARENTESIS_CERRAR encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.PARENTESIS_CERRAR, yytext());}
+"["     {textoArea.append("Token CORCHETE_ABRIR encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.CORCHETE_ABRIR, yytext());}
+"]"     {textoArea.append("Token CORCHETE_CERRAR encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.CORCHETE_CERRAR, yytext());}
+"{"     {textoArea.append("Token LLAVE_ABRIR encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.LLAVE_ABRIR, yytext());}
+"}"     {textoArea.append("Token LLAVE_CERRAR encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.LLAVE_CERRAR, yytext());}
 
 /*Funciones*/
-"Iguales"   {textoArea.append("Token IGUALES_FUNC encontrado, Lexema "+ yytext()+"\n");}
+"Iguales"   {textoArea.append("Token IGUALES_FUNC encontrado, Lexema "+ yytext()+"\n");
+            return new Symbol(sym.IGUALES_FUNC, yytext());}
 
 /*Identificadores*/
 {ID}		    {TokenObject TO = new TokenObject();
@@ -142,10 +166,12 @@ COMENTARIO = "</" ~ ( [\/][\>] | [\<][\/]~[\/][\>]~[\/][\>] )
                 TO.valor = "";
                 TO.longitud = 0;
                 textoArea.append("Token ID encontrado, Lexema "+ yytext()+"\n");
-                Tabla.guardarTokenObject(TO);}
+                Tabla.guardarTokenObject(TO);
+                return new Symbol(sym.ID, yytext());
+                }
 
 {CONST_INT}		{
-                if (verify_int(yytext())){
+                if (verify_int(yytext())){                    
                     TokenObject TO = new TokenObject();
                     TO.nombre = "_" + yytext();
                     TO.token = "CONST_INT";
@@ -154,6 +180,7 @@ COMENTARIO = "</" ~ ( [\/][\>] | [\<][\/]~[\/][\>]~[\/][\>] )
                     TO.longitud = 0;
                     textoArea.append("Token CONST_INT encontrado, Lexema "+ yytext()+"\n");
                     Tabla.guardarTokenObject(TO);
+                    return new Symbol(sym.CONST_INT, yytext());
                     }
                 }
 
@@ -167,6 +194,7 @@ COMENTARIO = "</" ~ ( [\/][\>] | [\<][\/]~[\/][\>]~[\/][\>] )
                     TO.longitud = 0;
                     textoArea.append("Token CONST_REAL encontrado, Lexema "+ yytext()+"\n");
                     Tabla.guardarTokenObject(TO);
+                    return new Symbol(sym.CONST_REAL, yytext());
                     }
                 }
 
@@ -180,6 +208,7 @@ COMENTARIO = "</" ~ ( [\/][\>] | [\<][\/]~[\/][\>]~[\/][\>] )
                     TO.longitud = Tabla.tamanoCadena(TO.valor);
                     textoArea.append("Token CONST_STRING encontrado, Lexema "+ yytext()+"\n");
                     Tabla.guardarTokenObject(TO);
+                    return new Symbol(sym.CONST_STRING, yytext());
                     }
                 }
 

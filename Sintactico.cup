@@ -1,0 +1,17 @@
+package Integrador;
+
+/*Imports*/
+import java_cup.runtime.*;
+
+/*Codigo de usuario*/
+
+
+/*Definicion de simbolos*/
+/*Terminales*/
+terminal ASIGN, DOS_PUNTOS, COMA, PUNTO, P_COMA, GUION_BAJO, WHILE, IF, ELSE, PRINT, BEGIN_PROGRAM, END_PROGRAM, DECLARE, END_DECLARE, END, INT, STRING, FLOAT, CHAR, AND, PIPE, PARENTESIS_ABRIR, PARENTESIS_CERRAR, CORCHETE_ABRIR, CORCHETE_CERRAR, LLAVE_ABRIR, LLAVE_CERRAR, IGUALES_FUNC, ID, CONST_INT, CONST_REAL, CONST_STRING, TRUE, FALSE;
+/*No Terminales*/
+non terminal prg', prg, declaraciones, sentencias, sentencia, while, if, asignacion_s, print, iguales, list_declaraciones, declaracion, dec, tipo, list_condicion, condicion, argumento, expresion, termino, factor, constante_int, constante_real, constante_string, listas_expresion, list_exp, 
+
+
+
+

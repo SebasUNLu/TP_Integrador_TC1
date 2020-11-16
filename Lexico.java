@@ -4,7 +4,7 @@
 
 package integrador;
 
-import java_cup.runtime.Symbol;
+import java_cup.runtime.*;
 import java.util.ArrayList;
 import javax.swing.JTextArea;
 import jflex.core.sym;
@@ -113,13 +113,13 @@ public class Lexico implements java_cup.runtime.Scanner {
     "\1\17\1\20\1\21\11\22\1\23\1\24\1\25\2\22"+
     "\1\26\1\27\1\30\1\0\1\31\1\32\1\0\1\33"+
     "\1\0\1\34\1\35\1\36\1\37\7\22\1\40\5\22"+
-    "\2\0\3\22\1\41\2\22\1\42\3\22\1\3\1\22"+
-    "\1\43\1\0\1\22\1\44\1\22\1\0\1\22\1\45"+
-    "\5\22\3\0\1\43\2\22\1\0\1\22\1\46\1\22"+
-    "\1\47\1\22\1\50\1\43\4\0\1\22\1\0\2\22"+
-    "\1\51\2\0\1\43\1\0\1\52\1\0\1\22\1\53"+
-    "\4\0\1\22\2\0\1\22\2\0\1\54\1\0\1\55"+
-    "\1\0\1\56";
+    "\2\0\3\22\1\41\2\22\1\42\3\22\1\43\1\22"+
+    "\1\44\1\0\1\22\1\45\1\22\1\0\1\22\1\46"+
+    "\5\22\3\0\1\44\2\22\1\0\1\22\1\47\1\22"+
+    "\1\50\1\22\1\51\1\44\4\0\1\22\1\0\2\22"+
+    "\1\52\2\0\1\44\1\0\1\53\1\0\1\22\1\54"+
+    "\4\0\1\22\2\0\1\22\2\0\1\55\1\0\1\56"+
+    "\1\0\1\57";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[132];
@@ -840,59 +840,68 @@ private boolean verify_string(String x){
             { JOptionPane.showMessageDialog(null, "Caracter no permitido: <" + yytext() + "> en la linea " + yyline, "Caracter no reconocido", JOptionPane.ERROR_MESSAGE);
             }
             // fall through
-          case 47: break;
+          case 48: break;
           case 2:
             { 
             }
             // fall through
-          case 48: break;
+          case 49: break;
           case 3:
             { textoArea.append("Token AND encontrado, Lexema "+ yytext()+"\n");
-            }
-            // fall through
-          case 49: break;
-          case 4:
-            { textoArea.append("Token PARENTESIS_ABRIR encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.AND, yytext());
             }
             // fall through
           case 50: break;
-          case 5:
-            { textoArea.append("Token PARENTESIS_CERRAR encontrado, Lexema "+ yytext()+"\n");
+          case 4:
+            { textoArea.append("Token PARENTESIS_ABRIR encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.PARENTESIS_ABRIR, yytext());
             }
             // fall through
           case 51: break;
-          case 6:
-            { textoArea.append("Token MULTIPLICAR encontrado, Lexema "+ yytext()+"\n");
+          case 5:
+            { textoArea.append("Token PARENTESIS_CERRAR encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.PARENTESIS_CERRAR, yytext());
             }
             // fall through
           case 52: break;
-          case 7:
-            { textoArea.append("Token SUMA encontrado, Lexema "+ yytext()+"\n");
+          case 6:
+            { textoArea.append("Token MULTIPLICAR encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.MULTIPLICAR, yytext());
             }
             // fall through
           case 53: break;
-          case 8:
-            { textoArea.append("Token COMA encontrado, Lexema "+ yytext()+"\n");
+          case 7:
+            { textoArea.append("Token SUMA encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.SUMA, yytext());
             }
             // fall through
           case 54: break;
-          case 9:
-            { textoArea.append("Token RESTA encontrado, Lexema "+ yytext()+"\n");
+          case 8:
+            { textoArea.append("Token COMA encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.COMA, yytext());
             }
             // fall through
           case 55: break;
-          case 10:
-            { textoArea.append("Token PUNTO encontrado, Lexema "+ yytext()+"\n");
+          case 9:
+            { textoArea.append("Token RESTA encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.RESTA, yytext());
             }
             // fall through
           case 56: break;
-          case 11:
-            { textoArea.append("Token DIVISION encontrado, Lexema "+ yytext()+"\n");
+          case 10:
+            { textoArea.append("Token PUNTO encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.PUNTO, yytext());
             }
             // fall through
           case 57: break;
+          case 11:
+            { textoArea.append("Token DIVISION encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.DIVISION, yytext());
+            }
+            // fall through
+          case 58: break;
           case 12:
-            { if (verify_int(yytext())){
+            { if (verify_int(yytext())){                    
                     TokenObject TO = new TokenObject();
                     TO.nombre = "_" + yytext();
                     TO.token = "CONST_INT";
@@ -901,35 +910,41 @@ private boolean verify_string(String x){
                     TO.longitud = 0;
                     textoArea.append("Token CONST_INT encontrado, Lexema "+ yytext()+"\n");
                     Tabla.guardarTokenObject(TO);
+                    return new Symbol(sym.CONST_INT, yytext());
                     }
             }
             // fall through
-          case 58: break;
+          case 59: break;
           case 13:
             { textoArea.append("Token DOS_PUNTOS encontrado, Lexema "+ yytext()+"\n");
-            }
-            // fall through
-          case 59: break;
-          case 14:
-            { textoArea.append("Token P_COMA encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.DOS_PUNTOS, yytext());
             }
             // fall through
           case 60: break;
-          case 15:
-            { textoArea.append("Token MENOR_QUE encontrado, Lexema "+ yytext()+"\n");
+          case 14:
+            { textoArea.append("Token P_COMA encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.P_COMA, yytext());
             }
             // fall through
           case 61: break;
-          case 16:
-            { textoArea.append("Token IGUAL encontrado, Lexema "+ yytext()+"\n");
+          case 15:
+            { textoArea.append("Token MENOR_QUE encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.MENOR_QUE, yytext());
             }
             // fall through
           case 62: break;
-          case 17:
-            { textoArea.append("Token MAYOR_QUE encontrado, Lexema "+ yytext()+"\n");
+          case 16:
+            { textoArea.append("Token IGUAL encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.IGUAL, yytext());
             }
             // fall through
           case 63: break;
+          case 17:
+            { textoArea.append("Token MAYOR_QUE encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.MAYOR_QUE, yytext());
+            }
+            // fall through
+          case 64: break;
           case 18:
             { TokenObject TO = new TokenObject();
                 TO.nombre = yytext();
@@ -939,39 +954,46 @@ private boolean verify_string(String x){
                 TO.longitud = 0;
                 textoArea.append("Token ID encontrado, Lexema "+ yytext()+"\n");
                 Tabla.guardarTokenObject(TO);
-            }
-            // fall through
-          case 64: break;
-          case 19:
-            { textoArea.append("Token CORCHETE-ABRIR encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.ID, yytext());
             }
             // fall through
           case 65: break;
-          case 20:
-            { textoArea.append("Token CORCHETE_CERRAR encontrado, Lexema "+ yytext()+"\n");
+          case 19:
+            { textoArea.append("Token CORCHETE_ABRIR encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.CORCHETE_ABRIR, yytext());
             }
             // fall through
           case 66: break;
-          case 21:
-            { textoArea.append("Token GUION_BAJO encontrado, Lexema "+ yytext()+"\n");
+          case 20:
+            { textoArea.append("Token CORCHETE_CERRAR encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.CORCHETE_CERRAR, yytext());
             }
             // fall through
           case 67: break;
-          case 22:
-            { textoArea.append("Token LLAVE_ABRIR encontrado, Lexema "+ yytext()+"\n");
+          case 21:
+            { textoArea.append("Token GUION_BAJO encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.GUION_BAJO, yytext());
             }
             // fall through
           case 68: break;
-          case 23:
-            { textoArea.append("Token PIPE encontrado, Lexema "+ yytext()+"\n");
+          case 22:
+            { textoArea.append("Token LLAVE_ABRIR encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.LLAVE_ABRIR, yytext());
             }
             // fall through
           case 69: break;
-          case 24:
-            { textoArea.append("Token LLAVE_CERRAR encontrado, Lexema "+ yytext()+"\n");
+          case 23:
+            { textoArea.append("Token PIPE encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.PIPE, yytext());
             }
             // fall through
           case 70: break;
+          case 24:
+            { textoArea.append("Token LLAVE_CERRAR encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.LLAVE_CERRAR, yytext());
+            }
+            // fall through
+          case 71: break;
           case 25:
             { if (verify_string(yytext())){
                     TokenObject TO = new TokenObject();
@@ -982,10 +1004,11 @@ private boolean verify_string(String x){
                     TO.longitud = Tabla.tamanoCadena(TO.valor);
                     textoArea.append("Token CONST_STRING encontrado, Lexema "+ yytext()+"\n");
                     Tabla.guardarTokenObject(TO);
+                    return new Symbol(sym.CONST_STRING, yytext());
                     }
             }
             // fall through
-          case 71: break;
+          case 72: break;
           case 26:
             { if (verify_real(yytext())){
                     TokenObject TO = new TokenObject();
@@ -996,110 +1019,136 @@ private boolean verify_string(String x){
                     TO.longitud = 0;
                     textoArea.append("Token CONST_REAL encontrado, Lexema "+ yytext()+"\n");
                     Tabla.guardarTokenObject(TO);
+                    return new Symbol(sym.CONST_REAL, yytext());
                     }
             }
             // fall through
-          case 72: break;
+          case 73: break;
           case 27:
             { textoArea.append("Token ASIGN encontrado, Lexema "+ yytext()+"\n");
-            }
-            // fall through
-          case 73: break;
-          case 28:
-            { textoArea.append("Token MENOR_IGUAL_QUE encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.ASIGN, yytext());
             }
             // fall through
           case 74: break;
-          case 29:
-            { textoArea.append("Token DISTINTO encontrado, Lexema "+ yytext()+"\n");
+          case 28:
+            { textoArea.append("Token MENOR_IGUAL_QUE encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.MENOR_IGUAL_QUE, yytext());
             }
             // fall through
           case 75: break;
-          case 30:
-            { textoArea.append("Token COMPARAR encontrado, Lexema "+ yytext()+"\n");
+          case 29:
+            { textoArea.append("Token DISTINTO encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.DISTINTO, yytext());
             }
             // fall through
           case 76: break;
-          case 31:
-            { textoArea.append("Token MAYOR_IGUAL_QUE encontrado, Lexema "+ yytext()+"\n");
+          case 30:
+            { textoArea.append("Token COMPARAR encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.COMPARAR, yytext());
             }
             // fall through
           case 77: break;
-          case 32:
-            { textoArea.append("Token IF encontrado, Lexema "+ yytext()+"\n");
+          case 31:
+            { textoArea.append("Token MAYOR_IGUAL_QUE encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.MAYOR_IGUAL_QUE, yytext());
             }
             // fall through
           case 78: break;
-          case 33:
-            { textoArea.append("Token END encontrado, Lexema "+ yytext()+"\n");
+          case 32:
+            { textoArea.append("Token IF encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.IF, yytext());
             }
             // fall through
           case 79: break;
-          case 34:
-            { textoArea.append("Token INT encontrado, Lexema "+ yytext()+"\n");
+          case 33:
+            { textoArea.append("Token END encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.END, yytext());
             }
             // fall through
           case 80: break;
-          case 35:
-            { /**/
+          case 34:
+            { textoArea.append("Token INT encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.INT, yytext());
             }
             // fall through
           case 81: break;
-          case 36:
-            { textoArea.append("Token CHAR encontrado, Lexema "+ yytext()+"\n");
+          case 35:
+            { textoArea.append("Token AND encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.AND, yytext());
             }
             // fall through
           case 82: break;
-          case 37:
-            { textoArea.append("Token ELSE encontrado, Lexema "+ yytext()+"\n");
+          case 36:
+            { /**/
             }
             // fall through
           case 83: break;
-          case 38:
-            { textoArea.append("Token FLOAT encontrado, Lexema "+ yytext()+"\n");
+          case 37:
+            { textoArea.append("Token CHAR encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.CHAR, yytext());
             }
             // fall through
           case 84: break;
-          case 39:
-            { textoArea.append("Token PRINT encontrado, Lexema "+ yytext()+"\n");
+          case 38:
+            { textoArea.append("Token ELSE encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.ELSE, yytext());
             }
             // fall through
           case 85: break;
-          case 40:
-            { textoArea.append("Token WHILE encontrado, Lexema "+ yytext()+"\n");
+          case 39:
+            { textoArea.append("Token FLOAT encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.FLOAT, yytext());
             }
             // fall through
           case 86: break;
-          case 41:
-            { textoArea.append("Token STRING encontrado, Lexema "+ yytext()+"\n");
+          case 40:
+            { textoArea.append("Token PRINT encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.PRINT, yytext());
             }
             // fall through
           case 87: break;
-          case 42:
-            { textoArea.append("Token DECLARE encontrado, Lexema "+ yytext()+"\n");
+          case 41:
+            { textoArea.append("Token WHILE encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.WHILE, yytext());
             }
             // fall through
           case 88: break;
-          case 43:
-            { textoArea.append("Token IGUALES_FUNC encontrado, Lexema "+ yytext()+"\n");
+          case 42:
+            { textoArea.append("Token STRING encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.STRING, yytext());
             }
             // fall through
           case 89: break;
-          case 44:
-            { textoArea.append("Token END_DECLARE encontrado, Lexema "+ yytext()+"\n");
+          case 43:
+            { textoArea.append("Token DECLARE encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.DECLARE, yytext());
             }
             // fall through
           case 90: break;
-          case 45:
-            { textoArea.append("Token END_PROGRAM encontrado, Lexema "+ yytext()+"\n");
+          case 44:
+            { textoArea.append("Token IGUALES_FUNC encontrado, Lexema "+ yytext()+"\n");
+            return new Symbol(sym.IGUALES_FUNC, yytext());
             }
             // fall through
           case 91: break;
-          case 46:
-            { textoArea.append("Token BEGIN_PROGRAM encontrado, Lexema "+ yytext()+"\n");
+          case 45:
+            { textoArea.append("Token END_DECLARE encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.END_DECLARE, yytext());
             }
             // fall through
           case 92: break;
+          case 46:
+            { textoArea.append("Token END_PROGRAM encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.END_PROGRAM, yytext());
+            }
+            // fall through
+          case 93: break;
+          case 47:
+            { textoArea.append("Token BEGIN_PROGRAM encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.BEGIN_PROGRAM, yytext());
+            }
+            // fall through
+          case 94: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }
