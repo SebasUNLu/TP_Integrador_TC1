@@ -1,6 +1,6 @@
 </ prueba.txt />
 PRINT = "12345678901234567890123456789"
-</ Recuerden modificar de este archivo todo componente lexico que definieron diferente en su lenguaje, como operador de asignación, apertura y cierre de ciclos y condicionales, operadores lógicos, nombres de tipos, etc. />
+</ R<ecuerden mod>ific/ar de< e<st<e ar>>chivo// t<o>>do componente lexico que definieron diferente en su lenguaje, como operador de asignación, apertura y cierre de ciclos y condicionales, operadores lógicos, nombres de tipos, etc. />
 
 DECLARE
 [suma, contador, d1] := [FLOAT, INT, FLOAT]
@@ -39,6 +39,6 @@ Else{
 var = 7 * ( Iguales(contador+17,[(suma+4)*2,actual,85/5]) + 5)
 var = Iguales(contador+17,[(suma+5)*2,actual,85/5],[contador,actual+6-8,suma],[6/3])
 
-</ --------------</----------------/>---------------- />
+</ --------------</----------------/>>--------/>-------- />
 
 END.PROGRAM

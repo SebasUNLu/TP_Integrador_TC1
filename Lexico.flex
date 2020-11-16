@@ -76,11 +76,9 @@ CONST_STRING = "\"" .* "\""
 /*COMENTARIO = {COMENTARIO_APER} ({LETRA}|{DIGITO}|{ESPACIO}|"/>"|"</")* {COMENTARIO_CIER}*/
 
 /*Comentario verison 5476*/
-COMENTARIO_APER = [\<][\/]
-COMENTARIO_CIER = [\/][\>]
-COMENTARIO = {COMENTARIO_APER} ( [^/] | \/ [^>] )* {COMENTARIO_CIER}
+/*COMENTARIO = {COMENTARIO_APER} ( [^/] | \/ [^>] )* {COMENTARIO_CIER}*/
 
-
+COMENTARIO = "</" ~ ( [\/][\>] | [\<][\/]~[\/][\>]~[\/][\>] ) 
 
 
 %%
