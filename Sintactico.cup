@@ -39,8 +39,8 @@ list_declaraciones ::= declaracion {:textoArea2.append("[Regla 10] declaracion")
 
 declaracion ::= CORCHETE_ABRIR dec CORCHETE_CERRAR {:textoArea2.append("[Regla 12] [ dec ]"); :}
 
-dec ::= ID CORCHETE_CERRAR ASIGN CORCHETE_ABRIR tipo {:textoArea2.append("[Regla 13]  ID]:=[tipo"); :}
-    | ID COMA dec COMA tipo {:textoArea2.append("[Regla 14] ID, dec ,tipo"); :}
+dec ::= ID:id CORCHETE_CERRAR ASIGN CORCHETE_ABRIR tipo {:textoArea2.append("[Regla 13]  ID]:=[tipo, ID valor = "+id);, RESULT = id; :}
+    | ID:id COMA dec COMA tipo {:textoArea2.append("[Regla 14] ID, dec ,tipo, ID valor = "+id); RESULT = id; :}
 
 tipo ::= FLOAT {:textoArea2.append("[Regla 15] FLOAT"); :}
     | INT {:textoArea2.append("[Regla 16] INT"); :}
@@ -69,7 +69,7 @@ condicion ::= PARENTESIS_ABRIR argumento MENOR_QUE argumento PARENTESIS_CERRAR {
     | FALSE {:textoArea2.append("[Regla 32] FALSE "); :}
 
 /*asignacion_s*/
-asignacion_s ::= ID ASIGN expresion {:textoArea2.append("[Regla 33] ID := expresion "); :}
+asignacion_s ::= ID:id ASIGN expresion {:textoArea2.append("[Regla 33] ID := expresion, Valor ID = "+id); RESULT = id;:}
 
 /*Expresiones*/
 expresion ::= expresion SUMA termino {:textoArea2.append("[Regla 34] expresion + termino "); :}
@@ -80,12 +80,12 @@ termino ::= termino MULTIPLICAR factor {:textoArea2.append("[Regla 37] termino *
     | termino DIVISION factor {:textoArea2.append("[Regla 38] temrino / factor "); :}
     | factor {:textoArea2.append("[Regla 39] factor "); :}
 
-factor ::= ID {:textoArea2.append("[Regla 40] ID "); :}
+factor ::= ID:id {:textoArea2.append("[Regla 40] ID, Valor ID = "+id); RESULT = id;:}
     | constante {:textoArea2.append("[Regla 41] constante "); :}
     | PARENTESIS_ABRIR expresion PARENTESIS_CERRAR {:textoArea2.append("[Regla 42] (expresion) "); :}
 
 /*argumento*/
-argumento ::= ID {:textoArea2.append("[Regla 43] ID "); :}
+argumento ::= ID:id {:textoArea2.append("[Regla 43] ID, ID valor = "+); RESULT = id;:}
     | constante {:textoArea2.append("[Regla 44] constante "); :}
 
 /*PRINT*/
