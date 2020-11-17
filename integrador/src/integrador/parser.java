@@ -17,14 +17,14 @@ public class parser extends java_cup.runtime.lr_parser {
  public final Class getSymbolContainer() {
     return sym.class;
 }
-
+ 	public JTextArea textoArea2;
   /** Default constructor. */
   @Deprecated
   public parser() {super();}
 
   /** Constructor which sets the default scanner. */
   @Deprecated
-  public parser(java_cup.runtime.Scanner s) {super(s);}
+  public parser(java_cup.runtime.Scanner s, JTextArea t) {super(s); textoArea2 = t;}
 
   /** Constructor which sets the default scanner. */
   public parser(java_cup.runtime.Scanner s, java_cup.runtime.SymbolFactory sf) {super(s,sf);}
@@ -441,7 +441,7 @@ class CUP$parser$actions {
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
-		textoArea2.append("[Regla 13]  ID]:=[tipo, ID valor = "+id);, RESULT = id; 
+		textoArea2.append("[Regla 13]  ID]:=[tipo, ID valor = "+id); RESULT = id; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec",12, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -723,7 +723,7 @@ class CUP$parser$actions {
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		textoArea2.append("[Regla 43] ID, ID valor = "+); RESULT = id;
+		textoArea2.append("[Regla 43] ID, ID valor = "+id); RESULT = id;
               CUP$parser$result = parser.getSymbolFactory().newSymbol("argumento",16, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

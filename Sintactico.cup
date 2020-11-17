@@ -1,11 +1,18 @@
-package Integrador;
+package integrador;
 
 /*Imports*/
 import java_cup.runtime.*;
 import javax.swing.JTextArea;
 
 /*Codigo de usuario*/
+parser code
+{:
+:}
 
+action code 
+{:
+    public JTextArea textoArea2;
+:}
 
 /*Definicion de simbolos*/
 /*Terminales*/
@@ -39,7 +46,7 @@ list_declaraciones ::= declaracion {:textoArea2.append("[Regla 10] declaracion")
 
 declaracion ::= CORCHETE_ABRIR dec CORCHETE_CERRAR {:textoArea2.append("[Regla 12] [ dec ]"); :};
 
-dec ::= ID:id CORCHETE_CERRAR ASIGN CORCHETE_ABRIR tipo {:textoArea2.append("[Regla 13]  ID]:=[tipo, ID valor = "+id);, RESULT = id; :}
+dec ::= ID:id CORCHETE_CERRAR ASIGN CORCHETE_ABRIR tipo {:textoArea2.append("[Regla 13]  ID]:=[tipo, ID valor = "+id); RESULT = id; :}
     | ID:id COMA dec COMA tipo {:textoArea2.append("[Regla 14] ID, dec ,tipo, ID valor = "+id); RESULT = id; :};
 
 tipo ::= FLOAT {:textoArea2.append("[Regla 15] FLOAT"); :}
@@ -85,7 +92,7 @@ factor ::= ID:id {:textoArea2.append("[Regla 40] ID, Valor ID = "+id); RESULT = 
     | PARENTESIS_ABRIR expresion PARENTESIS_CERRAR {:textoArea2.append("[Regla 42] (expresion) "); :};
 
 /*argumento*/
-argumento ::= ID:id {:textoArea2.append("[Regla 43] ID, ID valor = "+); RESULT = id;:}
+argumento ::= ID:id {:textoArea2.append("[Regla 43] ID, ID valor = "+id); RESULT = id;:}
     | constante {:textoArea2.append("[Regla 44] constante "); :};
 
 /*PRINT*/

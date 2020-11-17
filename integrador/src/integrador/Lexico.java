@@ -848,7 +848,7 @@ private boolean verify_string(String x){
           case 49: break;
           case 3:
             { textoArea.append("Token AND encontrado, Lexema "+ yytext()+"\n");
-        return new Symbol(sym.AND, yytext());
+        return new Symbol(sym.AND, yytext()); 
             }
             // fall through
           case 50: break;
