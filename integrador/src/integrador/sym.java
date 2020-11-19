@@ -8,63 +8,51 @@ package integrador;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int DISTINTO = 47;
-  public static final int MULTIPLICAR = 41;
-  public static final int CHAR = 20;
-  public static final int CORCHETE_CERRAR = 27;
-  public static final int RESTA = 39;
-  public static final int DOS_PUNTOS = 3;
-  public static final int INT = 17;
-  public static final int PARENTESIS_ABRIR = 24;
-  public static final int END_PROGRAM = 13;
-  public static final int AND = 21;
-  public static final int IGUAL = 37;
-  public static final int IGUALES_FUNC = 30;
-  public static final int OR = 22;
-  public static final int END_DECLARE = 15;
-  public static final int COMPARAR = 46;
-  public static final int SUMA = 38;
-  public static final int IF = 9;
-  public static final int ID = 31;
+  public static final int DISTINTO = 39;
+  public static final int MULTIPLICAR = 33;
+  public static final int CORCHETE_CERRAR = 20;
+  public static final int RESTA = 31;
+  public static final int INT = 12;
+  public static final int PARENTESIS_ABRIR = 17;
+  public static final int END_PROGRAM = 9;
+  public static final int AND = 15;
+  public static final int IGUALES_FUNC = 23;
+  public static final int OR = 16;
+  public static final int END_DECLARE = 11;
+  public static final int COMPARAR = 38;
+  public static final int SUMA = 30;
+  public static final int IF = 5;
+  public static final int ID = 24;
   public static final int EOF = 0;
-  public static final int TRUE = 35;
+  public static final int TRUE = 28;
   public static final int error = 1;
-  public static final int COMA = 4;
-  public static final int PIPE = 23;
-  public static final int MAYOR_QUE = 42;
-  public static final int DECLARE = 14;
-  public static final int LLAVE_CERRAR = 29;
-  public static final int GUION_BAJO = 7;
-  public static final int ELSE = 10;
-  public static final int LLAVE_ABRIR = 28;
-  public static final int PUNTO = 5;
-  public static final int MAYOR_IGUAL_QUE = 44;
-  public static final int WHILE = 8;
-  public static final int BEGIN_PROGRAM = 12;
-  public static final int FLOAT = 19;
-  public static final int CONST_STRING = 34;
-  public static final int P_COMA = 6;
+  public static final int COMA = 3;
+  public static final int MAYOR_QUE = 34;
+  public static final int DECLARE = 10;
+  public static final int LLAVE_CERRAR = 22;
+  public static final int ELSE = 6;
+  public static final int LLAVE_ABRIR = 21;
+  public static final int MAYOR_IGUAL_QUE = 36;
+  public static final int WHILE = 4;
+  public static final int BEGIN_PROGRAM = 8;
+  public static final int FLOAT = 14;
+  public static final int CONST_STRING = 27;
   public static final int ASIGN = 2;
-  public static final int END = 16;
-  public static final int STRING = 18;
-  public static final int MENOR_QUE = 43;
-  public static final int CONST_REAL = 33;
-  public static final int FALSE = 36;
-  public static final int DIVISION = 40;
-  public static final int CORCHETE_ABRIR = 26;
-  public static final int PARENTESIS_CERRAR = 25;
-  public static final int MENOR_IGUAL_QUE = 45;
-  public static final int PRINT = 11;
-  public static final int CONST_INT = 32;
+  public static final int STRING = 13;
+  public static final int MENOR_QUE = 35;
+  public static final int CONST_REAL = 26;
+  public static final int FALSE = 29;
+  public static final int CORCHETE_ABRIR = 19;
+  public static final int PARENTESIS_CERRAR = 18;
+  public static final int DIVISION = 32;
+  public static final int MENOR_IGUAL_QUE = 37;
+  public static final int PRINT = 7;
+  public static final int CONST_INT = 25;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
   "ASIGN",
-  "DOS_PUNTOS",
   "COMA",
-  "PUNTO",
-  "P_COMA",
-  "GUION_BAJO",
   "WHILE",
   "IF",
   "ELSE",
@@ -73,14 +61,11 @@ public class sym {
   "END_PROGRAM",
   "DECLARE",
   "END_DECLARE",
-  "END",
   "INT",
   "STRING",
   "FLOAT",
-  "CHAR",
   "AND",
   "OR",
-  "PIPE",
   "PARENTESIS_ABRIR",
   "PARENTESIS_CERRAR",
   "CORCHETE_ABRIR",
@@ -94,7 +79,6 @@ public class sym {
   "CONST_STRING",
   "TRUE",
   "FALSE",
-  "IGUAL",
   "SUMA",
   "RESTA",
   "DIVISION",

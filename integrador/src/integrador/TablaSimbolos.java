@@ -34,6 +34,28 @@ public class TablaSimbolos {
 		return s.length();
 	}
 	
+	public void actualizarTipo(ArrayList<String> list_id, ArrayList<String> list_tipo) {
+		System.out.println("Pruebas act");
+		int lugar;
+		boolean flag;
+		for(int index = 0; index < list_id.size(); ++index){
+			String nombre = (String)list_id.get(index);
+			lugar = 0;
+			flag = false;
+			while((!flag) && (lugar<TBL_Simbolos.size())) {
+				if(TBL_Simbolos.get(lugar).nombre.equals(nombre))
+					flag = true;
+				else
+					++lugar;
+			}
+			if(flag) {
+				TBL_Simbolos.get(lugar).setTipo(list_tipo.get(index).toString());
+				System.out.println("Objeto: "+list_tipo.get(index).toString()+" tamaño: "+list_tipo.size()+"\n");
+			}else {
+				System.out.println("wot "+nombre);
+			}
+		}
+	}
 	
 	
 }

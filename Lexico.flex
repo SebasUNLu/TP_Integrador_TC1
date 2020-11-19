@@ -3,7 +3,6 @@ package integrador;
 import java_cup.runtime.*;
 import java.util.ArrayList;
 import javax.swing.JTextArea;
-import jflex.core.sym;
 import javax.swing.JOptionPane;
 
 %%
@@ -57,7 +56,7 @@ private boolean verify_string(String x){
 
 LETRA = [a-zA-ZáéíóúÁÉÍÓÚâêîôû]
 DIGITO = [0-9]
-ESPACIO = [ \t\r\n]+
+ESPACIO = [ \t\f\n\r\n]+
 ID = {LETRA}({LETRA}|{DIGITO}|_)*
 CONST_INT = {DIGITO}+
 CONST_REAL = {DIGITO}*[.]{DIGITO}+
@@ -73,16 +72,8 @@ COMENTARIO = "</" ~ ( [\/][\>] | [\<][\/]~[\/][\>]~[\/][\>] )
 
 ":="    	    {textoArea.append("Token ASIGN encontrado, Lexema "+ yytext()+"\n");
                 return new Symbol(sym.ASIGN, yytext());}
-":"             {textoArea.append("Token DOS_PUNTOS encontrado, Lexema "+ yytext()+"\n");
-                return new Symbol(sym.DOS_PUNTOS, yytext());}
 ","	            {textoArea.append("Token COMA encontrado, Lexema "+ yytext()+"\n");
                 return new Symbol(sym.COMA, yytext());}
-"."	            {textoArea.append("Token PUNTO encontrado, Lexema "+ yytext()+"\n");
-                return new Symbol(sym.PUNTO, yytext());}
-";"             {textoArea.append("Token P_COMA encontrado, Lexema "+ yytext()+"\n");
-                return new Symbol(sym.P_COMA, yytext());}
-"_"             {textoArea.append("Token GUION_BAJO encontrado, Lexema "+ yytext()+"\n");
-                return new Symbol(sym.GUION_BAJO, yytext());}
 "while"         {textoArea.append("Token WHILE encontrado, Lexema "+ yytext()+"\n");
                 return new Symbol(sym.WHILE, yytext());}
 "If"            {textoArea.append("Token IF encontrado, Lexema "+ yytext()+"\n");
@@ -99,22 +90,18 @@ COMENTARIO = "</" ~ ( [\/][\>] | [\<][\/]~[\/][\>]~[\/][\>] )
                 return new Symbol(sym.DECLARE, yytext());}
 "ENDDECLARE"    {textoArea.append("Token END_DECLARE encontrado, Lexema "+ yytext()+"\n");
                 return new Symbol(sym.END_DECLARE, yytext());}
-"END"	        {textoArea.append("Token END encontrado, Lexema "+ yytext()+"\n");
-                return new Symbol(sym.END, yytext());}        
 "INT"           {textoArea.append("Token INT encontrado, Lexema "+ yytext()+"\n");
                 return new Symbol(sym.INT, yytext());}
 "STRING"        {textoArea.append("Token STRING encontrado, Lexema "+ yytext()+"\n");
                 return new Symbol(sym.STRING, yytext());}
 "FLOAT"         {textoArea.append("Token FLOAT encontrado, Lexema "+ yytext()+"\n");
                 return new Symbol(sym.FLOAT, yytext());}
-"CHAR"          {textoArea.append("Token CHAR encontrado, Lexema "+ yytext()+"\n");
-                return new Symbol(sym.CHAR, yytext());}
 "and"           {textoArea.append("Token AND encontrado, Lexema "+ yytext()+"\n");
                 return new Symbol(sym.AND, yytext());}
+"or"            {textoArea.append("Token OR encontrado, Lexema "+ yytext()+"\n");
+                return new Symbol(sym.OR, yytext());}
 
 /*Operadores*/
-"="     {textoArea.append("Token IGUAL encontrado, Lexema "+ yytext()+"\n");
-        return new Symbol(sym.IGUAL, yytext());}
 "+"     {textoArea.append("Token SUMA encontrado, Lexema "+ yytext()+"\n");
         return new Symbol(sym.SUMA, yytext());}
 "-"     {textoArea.append("Token RESTA encontrado, Lexema "+ yytext()+"\n");
@@ -135,10 +122,7 @@ COMENTARIO = "</" ~ ( [\/][\>] | [\<][\/]~[\/][\>]~[\/][\>] )
         return new Symbol(sym.COMPARAR, yytext());}
 "<>"    {textoArea.append("Token DISTINTO encontrado, Lexema "+ yytext()+"\n");
         return new Symbol(sym.DISTINTO, yytext());}
-"&"     {textoArea.append("Token AND encontrado, Lexema "+ yytext()+"\n");
-        return new Symbol(sym.AND, yytext());}
-"|"     {textoArea.append("Token PIPE encontrado, Lexema "+ yytext()+"\n");
-        return new Symbol(sym.PIPE, yytext());}
+
 
 /*Parentesis*/
 "("     {textoArea.append("Token PARENTESIS_ABRIR encontrado, Lexema "+ yytext()+"\n");
@@ -153,6 +137,12 @@ COMENTARIO = "</" ~ ( [\/][\>] | [\<][\/]~[\/][\>]~[\/][\>] )
         return new Symbol(sym.LLAVE_ABRIR, yytext());}
 "}"     {textoArea.append("Token LLAVE_CERRAR encontrado, Lexema "+ yytext()+"\n");
         return new Symbol(sym.LLAVE_CERRAR, yytext());}
+
+
+"true"  {textoArea.append("Token TRUE encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.TRUE, yytext());}
+"false" {textoArea.append("Token FALSE encontrado, Lexema "+ yytext()+"\n");
+        return new Symbol(sym.FALSE, yytext());}
 
 /*Funciones*/
 "Iguales"   {textoArea.append("Token IGUALES_FUNC encontrado, Lexema "+ yytext()+"\n");
@@ -216,7 +206,7 @@ COMENTARIO = "</" ~ ( [\/][\>] | [\<][\/]~[\/][\>]~[\/][\>] )
 
 }
 
-[^]		{ JOptionPane.showMessageDialog(null, "Caracter no permitido: <" + yytext() + "> en la linea " + yyline, "Caracter no reconocido", JOptionPane.ERROR_MESSAGE); }
-
+[^]		{ throw new Error("Caracter no permitido: <"+yytext()+"> en linea "+yyline); }
+<<EOF>>         {return new Symbol(sym.EOF);}
 
 

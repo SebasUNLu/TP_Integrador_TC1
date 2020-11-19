@@ -14,6 +14,34 @@ ENDDECLARE
 
 BEGIN.PROGRAM
 
-contador=32770
+PRINT  "Prueba.txt Analizador Lexico!"
+
+contador := 0
+suma := 7.5
+contar := 18.22
+
+while (contador <= 92) {
+	contador := contador + 1
+	actual := (contador / 0.342) + (contador * (contar + 4.67))
+	suma := suma + actual
+	}
+PRINT  " suma es tipo float"
+
+
+If ((actual > 2) and (actual <> 0)){
+	PRINT  "actual es mayor que 2"
+	palabra := "es mayor"
+}
+Else{
+	PRINT "no es mayor que 2"
+}
+
+</ IGUALES Grupo 3, eliminar si no es tu tema especial />
+
+var := 7 * ( Iguales(contador+17,[(suma+4)*2,actual,85/5]) + 5)
+var := Iguales(contador+17,[contador,actual+6-8,suma])
+
+</ --------------</----------------/>---------------- />
+
 
 END.PROGRAM

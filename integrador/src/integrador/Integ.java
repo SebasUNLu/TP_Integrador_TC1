@@ -33,11 +33,13 @@ public class Integ extends JFrame{
     private FileReader fichero;
     private JTextArea textArea;
     private JTextArea textArea_1;
+    private JTextArea textArea_2;
     private JScrollPane ap;
     private JScrollPane ap2;
 	private String ruta;
 	private inputOutputFile iof = new inputOutputFile();
 	private JLabel label_ruta;
+	private Lexico lex;
 
 	private TablaSimbolos Tabla;
 
@@ -87,13 +89,19 @@ public class Integ extends JFrame{
 					textArea_1.setText("");
 					try {
 						fichero=new FileReader(ruta);
-						Lexico lex= new Lexico(fichero,textArea_1,Tabla);
-						lex.next_token();
+						lex= new Lexico(fichero,textArea_1,Tabla);
+//						lex.next_token();
+						parser sintactico = new parser(lex, textArea_2, Tabla);
+						sintactico.parse();
 						fichero.close();
+						JOptionPane.showMessageDialog(null, "Compilación exitosa!\nBien hecho!", "Resultado de la compilación",JOptionPane.INFORMATION_MESSAGE);
 					} catch (FileNotFoundException e) {
 						
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}catch (Exception e) {
+						JOptionPane.showMessageDialog(null, "Hubo un error en el analisis lexico.\nNo se puede continuar con el analisis.", "Error Lexico", JOptionPane.ERROR_MESSAGE);
 						e.printStackTrace();
 					}
 				}
@@ -203,7 +211,7 @@ public class Integ extends JFrame{
 
 		
 		
-		JTextArea textArea_2 = new JTextArea();
+		textArea_2 = new JTextArea();
 		textArea_2.setBounds(714, 32, 336, 280);
 		panel.add(textArea_2);
 		

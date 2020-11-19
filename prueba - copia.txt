@@ -1,5 +1,5 @@
 </ prueba.txt />
-PRINT = "12345678901234567890123456789"
+
 </ R<ecuerden mod>ific/ar de< e<st<e ar>>chivo// t<o>>do componente lexico que definieron diferente en su lenguaje, como operador de asignación, apertura y cierre de ciclos y condicionales, operadores lógicos, nombres de tipos, etc. />
 
 DECLARE

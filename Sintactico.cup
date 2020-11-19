@@ -3,111 +3,129 @@ package integrador;
 /*Imports*/
 import java_cup.runtime.*;
 import javax.swing.JTextArea;
+import javax.swing.JOptionPane;
+import java.util.ArrayList;
 
 /*Codigo de usuario*/
 parser code
 {:
+    public void syntax_error(Symbol s){
+        System.out.println("Error en linea "+(s.right+1)+" columna "+s.left+". "+s+" no reconocido. Valor "+s.value);
+        JOptionPane.showMessageDialog(null, "Error en linea "+(s.right+1)+" columna "+s.left+". \n"+s+" no reconocido. Valor "+s.value, "ERROR DE SINTAXIS", JOptionPane.ERROR_MESSAGE);
+    }
+
+    ArrayList<String> List_ID = new ArrayList<String>();
+    ArrayList<String> List_tipos = new ArrayList<String>();
+
+    public void guardarTipo(String id, String tipo){
+        //La forma en que guardamos las variables y sus tipos hace que queden en orden ambas listas, ya que la recursividad es de adentro hacia afuera
+        List_ID.add(0,id); //Guarda a la izquierda
+        List_tipos.add(tipo); //Guarda a la derecha
+    }
+ 
 :}
 
 action code 
 {:
     public JTextArea textoArea2;
+    public TablaSimbolos tabla;
 :}
 
 /*Definicion de simbolos*/
 /*Terminales*/
-terminal ASIGN, DOS_PUNTOS, COMA, PUNTO, P_COMA, GUION_BAJO, WHILE, IF, ELSE, PRINT, BEGIN_PROGRAM, END_PROGRAM, DECLARE, END_DECLARE, END, INT, STRING, FLOAT, CHAR, AND, OR, PIPE, PARENTESIS_ABRIR, PARENTESIS_CERRAR, CORCHETE_ABRIR, CORCHETE_CERRAR, LLAVE_ABRIR, LLAVE_CERRAR, IGUALES_FUNC, ID, CONST_INT, CONST_REAL, CONST_STRING, TRUE, FALSE, IGUAL, SUMA, RESTA, DIVISION, MULTIPLICAR, MAYOR_QUE, MENOR_QUE, MAYOR_IGUAL_QUE, MENOR_IGUAL_QUE, COMPARAR, DISTINTO;
+terminal ASIGN, COMA, WHILE, IF, ELSE, PRINT, BEGIN_PROGRAM, END_PROGRAM, DECLARE, END_DECLARE, INT, STRING, FLOAT, AND, OR, PARENTESIS_ABRIR, PARENTESIS_CERRAR, CORCHETE_ABRIR, CORCHETE_CERRAR, LLAVE_ABRIR, LLAVE_CERRAR, IGUALES_FUNC, ID, CONST_INT, CONST_REAL, CONST_STRING, TRUE, FALSE, SUMA, RESTA, DIVISION, MULTIPLICAR, MAYOR_QUE, MENOR_QUE, MAYOR_IGUAL_QUE, MENOR_IGUAL_QUE, COMPARAR, DISTINTO;
 
 /*No Terminales*/
-non terminal prgS, prg, declaraciones, sentencias, sentencia, while, if, asignacion_s, print, iguales, list_declaraciones, declaracion, dec, tipo, list_condicion, condicion, argumento, expresion, termino, factor, constante, listas_expresion, list_exp;
+non terminal prgS, prg, declaraciones, sentencias, sentencia, rwhile, rif, asignacion_s, asignacion_st, rprint, riguales, list_declaraciones, dec, tipo, list_condicion, condicion, expresion, termino, factor, constante, list_exp, op_log, op_comp;
+
 
 start with prgS;
 
 /*programa*/
-prgS ::= prg {: textoArea2.append("[Regla 0] Programa, llegando al simbolo start"); :};
+prgS ::= prg {: textoArea2.append("[Regla 0] Programa, llegando al simbolo start\n");:};
 
-prg ::= declaraciones BEGIN_PROGRAM sentencias END_PROGRAM {: textoArea2.append("[Regla 1] declaraciones BEGIN senencias END"); :};
+prg ::= declaraciones BEGIN_PROGRAM sentencias END_PROGRAM {: textoArea2.append("[Regla 1] declaraciones BEGIN senencias END\n"); :};
 
 /*sentencias*/
-sentencias ::= sentencia {:textoArea2.append("[Regla 2] sentencia"); :}
-    | sentencias sentencia {:textoArea2.append("[Regla 3] sentencias sentencia"); :};
+sentencias ::= sentencia {:textoArea2.append("[Regla 2] sentencia\n"); :}
+    | sentencias sentencia {:textoArea2.append("[Regla 3] sentencias sentencia\n"); :};
 
-sentencia ::= while {:textoArea2.append("[Regla 4] while"); :}
-    | if {:textoArea2.append("[Regla 5] if"); :}
-    | asignacion_s {:textoArea2.append("[Regla 6] asignacion_s"); :}
-    | print {:textoArea2.append("[Regla 7] print"); :}
-    | iguales {:textoArea2.append("[Regla 8] iguales"); :};
+sentencia ::= rwhile {:textoArea2.append("[Regla 4] while\n"); :}
+    | rif {:textoArea2.append("[Regla 5] if\n"); :}
+    | asignacion_s {:textoArea2.append("[Regla 6] asignacion_s\n"); :}
+    | asignacion_st {:textoArea2.append("[Regla y] asignacion_st\n");:}
+    | rprint {:textoArea2.append("[Regla 7] print\n"); :};
 
 /*declaraciones*/
-declaraciones ::= DECLARE list_declaraciones END_DECLARE {:textoArea2.append("[Regla 9] DECLARE list_declaraciones END_DECLARE"); :};
+declaraciones ::= DECLARE list_declaraciones:lista END_DECLARE {:textoArea2.append("[Regla 9] DECLARE list_declaraciones END_DECLARE\n"); :};
 
-list_declaraciones ::= declaracion {:textoArea2.append("[Regla 10] declaracion"); :}
-    | list_declaraciones declaracion {:textoArea2.append("[Regla 11] list_declaraciones declaracion"); :};
+list_declaraciones ::= CORCHETE_ABRIR dec CORCHETE_CERRAR {:textoArea2.append("[Regla 10] [ dec ]\n");tabla.actualizarTipo(List_ID, List_tipos); List_ID.clear();List_tipos.clear();:}
+    | list_declaraciones CORCHETE_ABRIR dec CORCHETE_CERRAR {:textoArea2.append("[Regla 11] list_declaraciones [ dec ]\n"); tabla.actualizarTipo(List_ID, List_tipos); List_ID.clear();List_tipos.clear();  :};
 
-declaracion ::= CORCHETE_ABRIR dec CORCHETE_CERRAR {:textoArea2.append("[Regla 12] [ dec ]"); :};
+dec ::= ID:id CORCHETE_CERRAR ASIGN CORCHETE_ABRIR tipo:tp {:textoArea2.append("[Regla 12]  ID]:=[tipo, ID valor = "+id+" Tipo = "+tp+"\n");guardarTipo(String.valueOf(id),String.valueOf(tp));:}
+    | ID:id COMA dec COMA tipo:tp {:textoArea2.append("[Regla 13] ID, dec ,tipo, ID valor = "+id+" Tipo = "+tp+"\n"); guardarTipo(String.valueOf(id),String.valueOf(tp));:};
 
-dec ::= ID:id CORCHETE_CERRAR ASIGN CORCHETE_ABRIR tipo {:textoArea2.append("[Regla 13]  ID]:=[tipo, ID valor = "+id); RESULT = id; :}
-    | ID:id COMA dec COMA tipo {:textoArea2.append("[Regla 14] ID, dec ,tipo, ID valor = "+id); RESULT = id; :};
-
-tipo ::= FLOAT {:textoArea2.append("[Regla 15] FLOAT"); :}
-    | INT {:textoArea2.append("[Regla 16] INT"); :}
-    | STRING {:textoArea2.append("[Regla 17] STRING"); :};
+tipo ::= FLOAT:tp {:textoArea2.append("[Regla 13] FLOAT\n");RESULT = tp; :}
+    | INT:tp {:textoArea2.append("[Regla 14] INT\n");RESULT = tp; :}
+    | STRING:tp {:textoArea2.append("[Regla 15] STRING\n"); RESULT = tp;:};
 
 /*while*/
-while ::= WHILE list_condicion LLAVE_ABRIR sentencias LLAVE_CERRAR {:textoArea2.append("[Regla 18] WHILE list_condicion {sentencias}"); :};
+rwhile ::= WHILE list_condicion LLAVE_ABRIR sentencias LLAVE_CERRAR {:textoArea2.append("[Regla 16] WHILE list_condicion {sentencias}\n"); :};
 
 /*if*/
-if ::= IF list_condicion LLAVE_ABRIR sentencias LLAVE_CERRAR {:textoArea2.append("[Regla 19] IF list_condicion {sentencias}"); :}
-    |  IF list_condicion LLAVE_ABRIR sentencias LLAVE_CERRAR ELSE LLAVE_ABRIR sentencias LLAVE_CERRAR {:textoArea2.append("[Regla 20] IF list_condicion {sentencias}ELSE{sentencias}"); :};
+rif ::= IF list_condicion LLAVE_ABRIR sentencias LLAVE_CERRAR {:textoArea2.append("[Regla 17] IF list_condicion {sentencias}\n"); :}
+    |  IF list_condicion LLAVE_ABRIR sentencias LLAVE_CERRAR ELSE LLAVE_ABRIR sentencias LLAVE_CERRAR {:textoArea2.append("[Regla 18] IF list_condicion {sentencias}ELSE{sentencias}\n"); :};
 
 /*condiciones*/
-list_condicion ::= condicion {:textoArea2.append("[Regla 21] condicion"); :}
-    | PARENTESIS_ABRIR list_condicion AND condicion PARENTESIS_CERRAR {:textoArea2.append("[Regla 22] (list_condicion AND condicion)"); :}
-    | PARENTESIS_ABRIR list_condicion OR condicion PARENTESIS_CERRAR {:textoArea2.append("[Regla 23] (list_condicion OR condicion)"); :};
 
-condicion ::= PARENTESIS_ABRIR argumento MENOR_QUE argumento PARENTESIS_CERRAR {:textoArea2.append("[Regla 24] (argumento < argumento) "); :}
-    | PARENTESIS_ABRIR argumento MAYOR_QUE argumento PARENTESIS_CERRAR {:textoArea2.append("[Regla 25] (argumento > argumento) "); :}
-    | PARENTESIS_ABRIR argumento MENOR_IGUAL_QUE argumento PARENTESIS_CERRAR {:textoArea2.append("[Regla 26] (argumento <= argumento) "); :}
-    | PARENTESIS_ABRIR argumento MAYOR_IGUAL_QUE argumento PARENTESIS_CERRAR {:textoArea2.append("[Regla 27] (argumento >= argumento) "); :}
-    | PARENTESIS_ABRIR argumento COMPARAR argumento PARENTESIS_CERRAR {:textoArea2.append("[Regla 28] (argumento == argumento) "); :}
-    | PARENTESIS_ABRIR argumento DISTINTO argumento PARENTESIS_CERRAR {:textoArea2.append("[Regla 29] (argumento <> argumento) "); :}
-    | iguales {:textoArea2.append("[Regla 30] iguales "); :}
-    | TRUE {:textoArea2.append("[Regla 31] TRUE "); :}
-    | FALSE {:textoArea2.append("[Regla 32] FALSE "); :};
+list_condicion ::= condicion {:textoArea2.append("[Regla 19] condicion\n"); :}
+    | PARENTESIS_ABRIR condicion op_log condicion PARENTESIS_CERRAR {:textoArea2.append("[Regla 20] (condicion op_log condicion)\n"); :};
+
+op_log ::= AND {:textoArea2.append("[Regla 21] AND\n"); :}
+    | OR {:textoArea2.append("[Regla 22] OR\n"); :};
+
+condicion ::= PARENTESIS_ABRIR expresion op_comp expresion PARENTESIS_CERRAR {:textoArea2.append("[Regla 23] (expresion op_comp expresion)\n"); :}
+    | FALSE {:textoArea2.append("[Regla 24] FALSE\n"); :}
+    | TRUE {:textoArea2.append("[Regla 25] TRUE\n"); :};
+
+op_comp ::= MAYOR_QUE {:textoArea2.append("[Regla 26] >\n"); :}
+    | MENOR_QUE {:textoArea2.append("[Regla 27] <\n"); :}
+    | MAYOR_IGUAL_QUE {:textoArea2.append("[Regla 28] >=\n"); :}
+    | MENOR_IGUAL_QUE {:textoArea2.append("[Regla 29] <=\n"); :}
+    | DISTINTO {:textoArea2.append("[Regla 30] <>\n"); :}
+    | COMPARAR {:textoArea2.append("[Regla 31] ==\n"); :};
 
 /*asignacion_s*/
-asignacion_s ::= ID:id ASIGN expresion {:textoArea2.append("[Regla 33] ID := expresion, Valor ID = "+id); RESULT = id;:};
+asignacion_s ::= ID:id ASIGN expresion {:textoArea2.append("[Regla 32] ID := expresion, Valor ID = "+id+"\n"); RESULT = id;:};
+
+asignacion_st ::= ID:id ASIGN CONST_STRING {:textoArea2.append("[Regla w] ID := CONST_STRING\n"); RESULT = id;:};
 
 /*Expresiones*/
-expresion ::= expresion SUMA termino {:textoArea2.append("[Regla 34] expresion + termino "); :}
-    | expresion RESTA termino {:textoArea2.append("[Regla 35] expresion - termino "); :}
-    | termino {:textoArea2.append("[Regla 36] termino "); :};
+expresion ::= expresion SUMA termino {:textoArea2.append("[Regla 33] expresion + termino\n"); :}
+    | expresion RESTA termino {:textoArea2.append("[Regla 34] expresion - termino\n "); :}
+    | termino {:textoArea2.append("[Regla 35] termino \n"); :};
 
-termino ::= termino MULTIPLICAR factor {:textoArea2.append("[Regla 37] termino * factor "); :}
-    | termino DIVISION factor {:textoArea2.append("[Regla 38] temrino / factor "); :}
-    | factor {:textoArea2.append("[Regla 39] factor "); :};
+termino ::= termino MULTIPLICAR factor {:textoArea2.append("[Regla 36] termino * factor \n"); :}
+    | termino DIVISION factor {:textoArea2.append("[Regla 37] temrino / factor\n"); :}
+    | factor {:textoArea2.append("[Regla 38] factor \n"); :};
 
-factor ::= ID:id {:textoArea2.append("[Regla 40] ID, Valor ID = "+id); RESULT = id;:}
-    | constante {:textoArea2.append("[Regla 41] constante "); :}
-    | PARENTESIS_ABRIR expresion PARENTESIS_CERRAR {:textoArea2.append("[Regla 42] (expresion) "); :};
+factor ::= ID:id {:textoArea2.append("[Regla 39] ID, Valor ID = "+id+"\n"); RESULT = id;:}
+    | constante {:textoArea2.append("[Regla 40] constante \n"); :}
+    | PARENTESIS_ABRIR expresion PARENTESIS_CERRAR {:textoArea2.append("[Regla 42] (expresion) \n"); :}
+    | riguales {:textoArea2.append("[Regla x] iguales \n"); :};
 
-/*argumento*/
-argumento ::= ID:id {:textoArea2.append("[Regla 43] ID, ID valor = "+id); RESULT = id;:}
-    | constante {:textoArea2.append("[Regla 44] constante "); :};
+constante ::= CONST_INT {:textoArea2.append("[Regla 43] CONST_INT \n"); :}
+    | CONST_REAL {:textoArea2.append("[Regla 44] CONST_REAL \n"); :};
 
 /*PRINT*/
-print ::= PRINT CONST_STRING {:textoArea2.append("[Regla 45] PRINT CONST_STRING "); :};
+rprint ::= PRINT CONST_STRING {:textoArea2.append("[Regla 45] PRINT CONST_STRING \n"); :};
 
 /*IGUALES_FUNC*/
-iguales ::= IGUALES_FUNC PARENTESIS_ABRIR expresion COMA listas_expresion PARENTESIS_CERRAR {:textoArea2.append("[Regla 46] IGUALES(expresion, listas_expresion) "); :};
+riguales ::= IGUALES_FUNC PARENTESIS_ABRIR expresion COMA CORCHETE_ABRIR list_exp CORCHETE_CERRAR PARENTESIS_CERRAR {:textoArea2.append("[Regla 46] IGUALES(expresion, listas_expresion) \n"); :};
 
-listas_expresion ::= CORCHETE_ABRIR list_exp CORCHETE_CERRAR {:textoArea2.append("[Regla 47] [list_exp] "); :}
-    | listas_expresion COMA CORCHETE_ABRIR list_exp CORCHETE_CERRAR {:textoArea2.append("[Regla 48] listas_expresion,[list_exp] "); :};
+list_exp ::= expresion {:textoArea2.append("[Regla 47] expresion \n"); :}
+    | list_exp COMA expresion {:textoArea2.append("[Regla 48] list_exp, expresion \n"); :};
 
-list_exp ::= expresion {:textoArea2.append("[Regla 49] expresion "); :}
-    | list_exp COMA expresion {:textoArea2.append("[Regla 50] list_exp, expresion "); :};
 
-constante ::= CONST_INT {:textoArea2.append("[Regla 51] CONST_INT "); :}
-    | CONST_REAL {:textoArea2.append("[Regla 52] CONST_REAL "); :};
 
 
